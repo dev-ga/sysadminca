@@ -31,7 +31,6 @@ new #[Layout('layouts.guest')] class extends Component
     <div class="flex items-center justify-center mb-3">
         <h1 class="text-white text-md font-extrabold uppercase">Bienvenidos</h1>
     </div>
-
     <form wire:submit="login">
         <!-- Email Address -->
         <div>
@@ -55,7 +54,7 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
         <div class="flex justify-center items-center mt-2 text-white">
             ¿No tienes cuenta?
-            <a href="{{ route('register') }}" class="ml-1 text-sm text-[#fd033f] transition-colors duration-200 underline">
+            <a href="{{ route('register-costumer') }}" class="ml-1 text-sm text-[#fd033f] transition-colors duration-200 underline">
             {{ __('Registrate') }}
             </a>
         </div>
