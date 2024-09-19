@@ -12,6 +12,7 @@ Route::view('/', 'welcome');
 
 Route::view('/costumer/w', 'welcome-costumer');
 
+Volt::route('/costumer/l', 'costumer.login-costumer')->name('login-costumer');
 Volt::route('/costumer/r', 'costumer.register-costumer')->name('register-costumer');
 
 /*----------------------------------------------------------------------------------- */

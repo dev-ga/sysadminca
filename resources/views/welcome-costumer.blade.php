@@ -51,12 +51,19 @@
                             Te damos la bienvenida a nuestro nuevo sistema de compras ON-LINE
                         </p>
                     </div>
+                    <div class="flex items-center justify-center mt-6 w-full hidden sm:block">
+                        <a class="flex items-center justify-center w-full" href="{{ route('login-costumer') }}">
+                            <button class="flex justify-center w-1/2 h-full rounded-3xl border border-[#fd033f] py-4 px-6 mt-1 text-md items-center sm:text-center font-bold text-white shadow-sm hover:bg-[#fd033f] uppercase">
+                                <span class="text-center font-extrabold items-center shadow-2xl">Siguiente</span>
+                            </button>
+                        </a>
+                    </div>
                 </div>
-                <footer class="fixed bottom-0 flex flex-col items-center text-center w-full p-4">
+                <footer class="fixed bottom-0 flex flex-col items-center text-center w-full p-4 block md:hidden">
                     <div class="flex items-center justify-center mt-6 w-full">
-                        <a class="w-full" href="{{ route('login') }}">
-                            <button class="flex justify-center w-full h-full rounded-3xl border border-[#fd033f] py-3 px-6 mt-1 text-sm items-center sm:text-center font-bold text-white shadow-sm hover:bg-[#fd033f] uppercase">
-                                <span class="text-center items-center shadow-2xl">Siguiente</span>
+                        <a class="w-full" href="{{ route('login-costumer') }}">
+                            <button class="flex justify-center w-full h-full rounded-3xl border border-[#fd033f] py-4 px-6 mt-1 text-md items-center sm:text-center font-bold text-white shadow-sm hover:bg-[#fd033f] uppercase">
+                                <span class="text-center font-extrabold items-center shadow-2xl">Siguiente</span>
                             </button>
                         </a>
                     </div>
