@@ -14,13 +14,4 @@
             </div>
         </div>
     </div>
-    <x-native-select
-
-    label="Select Status"
-
-    placeholder="Select one status"
-
-    :options="['Active', 'Pending', 'Stuck', 'Done']"
-
-/>
 </x-app-layout>
