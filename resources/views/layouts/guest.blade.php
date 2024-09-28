@@ -7,6 +7,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" sizes="256x256" href="{{ asset('image/favicon.ico') }}">
+    <link rel="icon" sizes="180x180" href="{{ asset('image/favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('image/logo.png') }}"/>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -18,7 +22,7 @@
 
 </head>
 <body class="font-sans text-gray-900 antialiased">
-    <div class="flex flex-col h-screen justify-center items-center dark:bg-slate-800">
+    <div class="flex flex-col h-screen justify-center items-center bg-slate-800">
         <!-- Iconos -->
         @if(Request::routeIs('register-costumer'))
           <div class="fixed top-1 left-1 mb-2 flex justify-center p-1">

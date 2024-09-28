@@ -6,6 +6,10 @@
 
         <title>Laravel</title>
 
+        <link rel="icon" sizes="256x256" href="{{ asset('image/favicon.ico') }}">
+        <link rel="icon" sizes="180x180" href="{{ asset('image/favicon.ico') }}">
+        <link rel="apple-touch-icon" href="{{ asset('image/logo.png') }}"/>
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -18,11 +22,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased font-sans">
-        <div class="flex h-screen justify-center items-center dark:bg-slate-800">
+        <div class="flex h-screen justify-center items-center bg-slate-800">
             <div class="mx-auto flex justify-center px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8">
                 <div class="text-center ">
                     <h1
-                        class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-slate-200 sm:text-5xl md:text-6xl">
+                        class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
                         <div class="flex items-center justify-center">
                             <div class="items-center">
                                 <img src="{{ asset('image/logo.png') }}" class="w-[40rem] h-auto" alt="">

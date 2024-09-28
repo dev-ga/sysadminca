@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('sku');
             $table->string('code');
             $table->string('product');
-            $table->string('category');
-            $table->string('subcategory');
+            $table->integer('category_id');
+            $table->integer('subcategory_id');
             $table->string('size');
             $table->string('color');
             $table->string('model')->nullable();

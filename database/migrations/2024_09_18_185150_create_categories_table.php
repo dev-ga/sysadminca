@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('slug', 255);
             $table->string('image', 255)->nullable();
-            $table->string('status', 255)->default('1'); //1:activa 2:inactiva
+            $table->string('status', 10)->default('activa');
             $table->timestamps();
         });
     }
