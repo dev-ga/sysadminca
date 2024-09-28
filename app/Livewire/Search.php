@@ -23,8 +23,8 @@ class Search extends Component
     {
         $this->dialog()->show([
             'icon' => 'error',
-            'title' => 'Error Dialog!',
-            'description' => 'Woops, its an error.',
+            'title' => 'Notificacion!',
+            'description' => 'El producto no se encuentra en existencia, favor intente con otro',
         ]);
 
     }
@@ -50,6 +50,7 @@ class Search extends Component
 
                 if (!isset($search_item)) {
                     $this->code_no_exit();
+
                 } elseif ($search_item->quantity > 0) {
                     $item_cars = new ItemCar();
                     $item_cars->inventory_id = $search_item->id;
@@ -58,6 +59,7 @@ class Search extends Component
                     $item_cars->save();
 
                     $this->reset();
+                    
                 } else {
                     $this->errorDialog();
                 }
@@ -80,10 +82,8 @@ class Search extends Component
                 ]);
             }
 
-
             $this->dispatch('add-to-card');
             
-
         } catch (\Throwable $th) {
             dd($th);
         }

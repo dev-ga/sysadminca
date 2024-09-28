@@ -13,10 +13,12 @@ Route::view('/', 'welcome');
 
 Route::view('/costumer/w', 'welcome-costumer');
 
-Volt::route('costumer/l', 'costumer.login-costumer')->name('login-costumer');
-Volt::route('costumer/r', 'costumer.register-costumer')->name('register-costumer');
-Route::view('search', 'livewire.costumer.search-item')->middleware(['auth', 'verified'])->name('search-item');
-Route::view('costumer/c/c', 'livewire.costumer.shopping-car')->middleware(['auth', 'verified'])->name('shopping-car');
+Volt::route('/costumer/l', 'costumer.login-costumer')->name('login-costumer');
+Volt::route('/costumer/r', 'costumer.register-costumer')->name('register-costumer');
+Route::view('/search', 'livewire.costumer.search-item')->middleware(['auth', 'verified'])->name('search-item');
+Route::view('/costumer/c/c', 'livewire.costumer.shopping-car')->middleware(['auth', 'verified'])->name('shopping-car');
+Route::view('/costumer/p/s', 'livewire.costumer.pay-sale')->middleware(['auth', 'verified'])->name('pay-sale');
+Route::view('/costumer/s/s', 'livewire.costumer.status-sale')->middleware(['auth', 'verified'])->name('status-sale');
 
 /*----------------------------------------------------------------------------------- */
 

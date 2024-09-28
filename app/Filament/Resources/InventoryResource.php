@@ -62,20 +62,6 @@ class InventoryResource extends Resource
                 Forms\Components\TextInput::make('color')
                     ->required()
                     ->maxLength(255),
-                // Forms\Components\TextInput::make('model')
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('material')
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('variation_1')
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('variation_2')
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('variation_3')
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('variation_4')
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('variation_5')
-                //     ->maxLength(255),
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()

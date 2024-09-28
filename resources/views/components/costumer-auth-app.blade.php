@@ -15,6 +15,9 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Filepond -->
+        <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+
         @wireUiScripts
         {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 
@@ -24,7 +27,7 @@
 
     </head>
     <body class="font-sans antialiased">
-        <x-dialog z-index="z-50" blur="md" align="center" />
+        <x-dialog z-index="z-50" blur="md" align="center" class="bg-gray-700"/>
         <div class="min-h-screen bg-gray-900 text-white">
 
             <div class="fixed w-full mb-2">

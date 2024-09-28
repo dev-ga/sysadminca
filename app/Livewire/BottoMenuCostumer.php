@@ -9,8 +9,21 @@ use Livewire\Component;
 
 class BottoMenuCostumer extends Component
 {
+    
     #[On('add-to-card')] 
     public function updateCardList()
+    {
+        $this->reset();
+    }
+
+    #[On('delete-item-to-card')] 
+    public function deleteCardList()
+    {
+        $this->reset();
+    }
+
+    #[On('payment-registered')] 
+    public function paymentRegistered()
     {
         $this->reset();
     }
@@ -22,6 +35,10 @@ class BottoMenuCostumer extends Component
 
     public function car(){
         return $this->redirect('/costumer/c/c', navigate: true);
+    }
+
+    public function status_sale(){
+        return $this->redirect('/costumer/s/s', navigate: true);
     }
 
     public function profile(){

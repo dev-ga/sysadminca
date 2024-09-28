@@ -22,12 +22,12 @@
 
             @if(count($search) == 0)
             {{-- Productos vacios --}}
-            <div class="text-center mt-10">
+            <div class="text-center mt-12">
                 <div class="flex justify-center items-center w-[15rem] mx-auto text-gray-400 opacity-25">
-                    <img src="{{ asset('image/empty-cart.png') }}" alt="">
+                    <img src="{{ asset('image/search-empty.png') }}" alt="">
                 </div>
                 <h3 class="mt-2 text-sm font-semibold text-gray-900">No projects</h3>
-                <p class="mt-1 text-sm text-gray-500">Usted! no tiene productos seleccionados</p>
+                <p class="mt-1 text-sm text-gray-500">Usted! no tiene productos en su busqueda!</p>
             </div>
             @else
                 @foreach ($search as $item)
