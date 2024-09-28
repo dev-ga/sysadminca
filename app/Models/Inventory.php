@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Inventory extends Model
 {
@@ -20,8 +22,8 @@ class Inventory extends Model
         'sku',
         'code',
         'product',
-        'category',
-        'subcategory',
+        'category_id',
+        'subcategory_id',
         'size',
         'color',
         'model',
@@ -31,7 +33,6 @@ class Inventory extends Model
         'variation_3',
         'variation_4',
         'variation_5',
-        'date',
         'price',
         'quantity',
         'image',
@@ -47,4 +48,35 @@ class Inventory extends Model
     {
         return $this->hasMany(InventoryMovement::class, 'id', 'inventory_id');
     }
+
+    /**
+     * Get all of the inventoryMovements for the Inventory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function itemCars(): HasMany
+    {
+        return $this->hasMany(ItemCar::class, 'id', 'inventory_id');
+    }
+
+    /**
+     * Get the Category that owns the Inventory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the Category that owns the Inventory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subCategory(): BelongsTo
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
+
 }
