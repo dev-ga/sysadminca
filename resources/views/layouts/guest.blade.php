@@ -98,6 +98,9 @@
             </div>
         </footer>
     </div>
+
+
+    @livewire('wire-elements-modal')
 </body>
 </html>
 

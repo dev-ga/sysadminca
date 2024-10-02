@@ -33,16 +33,27 @@ new #[Layout('layouts.guest')] class extends Component
     </div>
     <form wire:submit="login">
         <!-- Email Address -->
-        <div>
-            <x-input class="caret-white" icon="user" placeholder="Email" rounded type="email" name="email" wire:model="form.email"/>
-            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <svg class="w-4 h-4 text-[#fd033f] font-extrabold" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                    <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
+                    <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                </svg>
+            </div>
+            <input wire:model="form.email" type="text" name="email" id="input-group-1" class="bg-black border border-[#fd033f] text-white text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@gmail.com">
         </div>
+        <x-input-error :messages="$errors->get('form.email')" class="mt-1" />
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-input icon="user" placeholder="Contraseña" rounded type="password" name="password" wire:model="form.password" autocomplete="current-password"/>
-            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+        <div class="relative mt-5">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                <svg class="w-6 h-6 text-[#fd033f] font-extrabold" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M8 10V7a4 4 0 1 1 8 0v3h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h1Zm2-3a2 2 0 1 1 4 0v3h-4V7Zm2 6a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1Z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <input wire:model="form.password" type="password" name="password" id="input-group-1" class="bg-black border border-[#fd033f] text-white text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="********">
         </div>
+        <x-input-error :messages="$errors->get('form.password')" class="mt-1" />
 
         <div class="flex items-center justify-center mt-6">
             <button class="flex justify-center w-full h-full rounded-3xl border border-[#fd033f] py-3 px-6 mt-1 text-sm items-center sm:text-center font-bold text-white shadow-sm hover:bg-[#fd033f] uppercase">

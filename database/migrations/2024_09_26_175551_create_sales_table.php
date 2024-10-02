@@ -26,8 +26,9 @@ return new class extends Migration
             $table->string('user_name')->nullable();
             $table->decimal('commission_bsd', 8, 2)->default(0);
             $table->decimal('commission_usd', 8, 2)->default(0);
-            $table->integer('image')->nullable();
+            $table->integer('proof_payment_id')->nullable();
             $table->integer('status_id')->default(1);
+            $table->string('qr')->nullable();
             $table->string('created_by');
             $table->timestamps();
         });
