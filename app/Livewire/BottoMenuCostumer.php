@@ -38,7 +38,8 @@ class BottoMenuCostumer extends Component
     }
 
     public function status_sale(){
-        return $this->redirect('/costumer/s/s', navigate: true);
+
+        return $this->redirect('/costumer/s/s', navigate: false);
     }
 
     public function profile(){

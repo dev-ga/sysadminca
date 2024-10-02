@@ -31,6 +31,7 @@ class Sale extends Model
         'commission_bsd',
         'commission_usd',
         'status_id',
+        'proof_payment_id',
         'created_by',
     ];
 
@@ -52,5 +53,15 @@ class Sale extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(Statu::class, 'status_id', 'id');
+    }
+
+    /**
+     * Get the statusSale associated with the Sale
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function proofPayment(): BelongsTo
+    {
+        return $this->belongsTo(ProofPayment::class, 'proof_payment_id', 'id');
     }
 }

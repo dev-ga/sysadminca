@@ -28,6 +28,22 @@ Route::view('/costumer/s/s', 'livewire.costumer.status-sale')->middleware(['auth
  */
 
 Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::view('bcv', 'bcv')->middleware(['auth', 'verified'])->name('bcv');
+Route::view('box', 'box')->middleware(['auth', 'verified'])->name('box');
+Route::view('daily-closing', 'daily-closing')->middleware(['auth', 'verified'])->name('daily-closing');
+Route::view('bills', 'bills')->middleware(['auth', 'verified'])->name('bills');
+Route::view('inventory', 'inventory')->middleware(['auth', 'verified'])->name('inventory');
+Route::view('daily-sale', 'inventory')->middleware(['auth', 'verified'])->name('daily-sale');
+Route::view('on-line', 'on-line')->middleware(['auth', 'verified'])->name('on-line');
+Route::view('profile', 'profile')->middleware(['auth', 'verified'])->name('profile');
+
+
+/**Route for  list items view */
+Route::get('/list/items/{sale_code}', function (string $sale_code) {
+    dd($sale_code);
+    return 'User '.$sale_code;
+});
  
  /*----------------------------------------------------------------------------------- */
 
@@ -43,22 +59,22 @@ require __DIR__.'/auth.php';
 Route::get('/ex', function () {
     try {
 
-        // $array = ['35', '36', '37', '38', '39', '40'];
+        $array = ['35', '36', '37', '38', '39', '40'];
 
-        $array = ['5','5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '10'];
+        // $array = ['5','5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '10'];
 
         // $array = ['35'];
 
 
         for ($i=0; $i < count($array) ; $i++) { 
             $inventario = new Inventory();
-            $inventario->sku = 'Gina-01';
-            $inventario->product = 'Gina-01';
+            $inventario->sku = 'Eden09';
+            $inventario->product = 'Eden09';
             $inventario->code = 'CA-'.random_int(11111111, 99999999);
             $inventario->category_id = 6;
             $inventario->subcategory_id = 15;
             $inventario->size = $array[$i];
-            $inventario->color = 'black';
+            $inventario->color = 'silver';
             // $inventario->size = 35.5;
             // $inventario->price = 35;
             $inventario->quantity = 0;
@@ -74,5 +90,8 @@ Route::get('/ex', function () {
         dd($th);
     }
     
-
 });
+
+Route::get('/xx', function () {
+    return redirect(route('filament.admin.auth.login'));
+})->name('xx');
