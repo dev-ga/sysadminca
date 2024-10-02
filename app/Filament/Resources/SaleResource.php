@@ -102,6 +102,9 @@ class SaleResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'pago-en-tienda' => 'success',
                         'efectivo-dolares' => 'success',
+                        'pago-movil' => 'success',
+                        'zelle' => 'success',
+                        'banesco-panama' => 'success',
                     })
                     ->searchable(),
 
@@ -111,6 +114,7 @@ class SaleResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'retiro-tienda-fisica' => 'danger',
                         'pickup' => 'danger',
+                        'delivery' => 'danger',
                     })
                     ->searchable(),
 
@@ -127,6 +131,8 @@ class SaleResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'registrada' => 'warning',
+                        'Validando Pago' => 'info',
+                        'facturada' => 'success',
                     })
                     ->sortable(),
 

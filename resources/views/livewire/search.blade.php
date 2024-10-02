@@ -1,9 +1,9 @@
 <div>
     <div class="flex items-center bg-gray-900">
         <div class="container max-w-6xl px-5 mx-auto py-24">
-            <div class="flex flex-col items-left justify-start">
+            <div class="flex flex-col items-center justify-start">
                 <h1 class="text-xl font-bold text-white">Buscador de Productos</h1>
-                <p class="text-sm text-gray-300">Introduzca el codigo del articulo o los ultimos 4 digitos</p>
+                <p class="text-xs text-center text-gray-300">Introduzca el codigo del articulo o los ultimos 4 digitos</p>
             </div>
 
 
