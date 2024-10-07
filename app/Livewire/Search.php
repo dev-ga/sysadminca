@@ -4,11 +4,14 @@ namespace App\Livewire;
 
 use App\Models\Inventory;
 use App\Models\ItemCar;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use WireUi\Components\Dropdown\Item;
 use WireUi\Traits\WireUiActions;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class Search extends Component
 {
@@ -16,6 +19,8 @@ class Search extends Component
     
     #[Validate('required')] 
     public $code;
+
+    public $search;
 
     public $quantity = [];
 
@@ -63,29 +68,96 @@ class Search extends Component
                 } else {
                     $this->errorDialog();
                 }
-            
 
         } catch (\Throwable $th) {
-            dd($th);
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
         }
 
     }
 
+    //funcion comentada por pruebas
+    // public function add_item($id){
+    //     try {
+
+    //         foreach ($this->quantity as $key => $value) {
+    //             # code...
+    //             $addItme = ItemCar::where('id', $key)->first()->update([
+    //                 'quantity' => $value,
+    //                 'status' => 2,
+    //             ]);
+    //         }
+
+    //         $this->dispatch('add-to-card');
+
+    //         Notification::make()
+    //         ->title('ACCION EXITOSA!')
+    //         ->body('El producto fue anadido con exito a su carrito de compra. Gracias!')
+    //         ->color('success') 
+    //         ->icon('heroicon-o-document-text')
+    //         ->iconColor('success')
+    //         ->send();
+            
+    //     } catch (\Throwable $th) {
+    //         Notification::make()
+    //         ->title('NOTIFICACION-EXCEPCION')
+    //         ->body($th->getMessage())
+    //         ->color('error') 
+    //         ->icon('heroicon-o-document-text')
+    //         ->iconColor('error')
+    //         ->send();
+    //     }
+
+    // }
+
     public function add_item($id){
+
         try {
 
-            foreach ($this->quantity as $key => $value) {
-                # code...
-                $addItme = ItemCar::where('id', $key)->first()->update([
-                    'quantity' => $value,
-                    'status' => 2,
-                ]);
-            }
+            $search_item = Inventory::where('id', $id)->first();
 
-            $this->dispatch('add-to-card');
-            
+            if ($search_item->quantity > 0) {
+                    $item_cars = new ItemCar();
+                    $item_cars->inventory_id = $search_item->id;
+                    $item_cars->code = $search_item->code;
+                    $item_cars->user_id = Auth::user()->id;
+                    $item_cars->status =2;
+                    foreach ($this->quantity as $key => $value) {
+                        if($key == $id){
+                            $item_cars->quantity = $value;
+                        }
+                    $item_cars->save();   
+                }
+
+                $this->reset();
+
+                $this->dispatch('add-to-card');
+
+                Notification::make()
+                ->title('ACCION EXITOSA!')
+                ->body('El producto fue anadido con exito a su carrito de compra. Gracias!')
+                ->color('success') 
+                ->icon('heroicon-o-document-text')
+                ->iconColor('success')
+                ->send();
+   
+            } else {
+                $this->errorDialog();
+            }
+    
         } catch (\Throwable $th) {
-            dd($th);
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
         }
 
     }
@@ -93,6 +165,21 @@ class Search extends Component
     public function render()
     {
         $search = ItemCar::where('user_id', Auth::user()->id)->where('status', 1)->get();
-        return view('livewire.search', compact('search'));
+        
+        $books = Inventory::query()
+        ->select('id', 'sku', 'code', 'size', 'color', 'price', 'quantity')
+        ->orderBy('id', 'desc')
+        ->when(
+            $this->search,
+            fn (Builder $query) => $query
+                ->where('sku', 'like', "%{$this->search}%")
+                ->orWhere('code', 'like', "%{$this->search}%")
+        )->paginate(30);
+
+        
+
+        return view('livewire.search', [
+            'books' => $books
+        ]);
     }
 }

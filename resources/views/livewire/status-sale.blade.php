@@ -1,6 +1,16 @@
 <div>
     <div class="flex items-center bg-gray-900">
         <div class="container px-5 mx-auto py-24">
+            @if(count($sale) == 0)
+            {{-- Productos vacios --}}
+            <div class="text-center mt-12">
+                <div class="flex justify-center items-center w-[15rem] mx-auto text-gray-400 opacity-25">
+                    <img src="{{ asset('image/search-empty.png') }}" alt="">
+                </div>
+                <h3 class="mt-2 text-sm font-semibold text-gray-900">No projects</h3>
+                <p class="mt-1 text-sm text-gray-500">Usted! no tiene pedidos pendiente por cancelar o por retirar</p>
+            </div>
+            @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2">
                 @foreach ($sale as $item)
                     <div id="accordion-open-{{ $item->id }}" data-accordion="open" data-active-classes="bg-{{ $item->status->color }} border-0">
@@ -77,41 +87,42 @@
                                                     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
                                                 </svg>
                                                 Asesor de Venta
-                                            </button>
-
+                                            </button>`
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- Small Modal -->
+                    <div id="small-modal" tabindex="-1" class="fixed top-0 left-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-black rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5 space-y-4">
+                                    <div class="text-center mt-10">
+                                        <div class="flex justify-center items-center w-[15rem] mx-auto text-gray-400">
+                                            <img src="{{ asset('storage/'.$item->sale_code.'.png') }}" alt="">
+                                        </div>
+                                        <p class="mt-1 text-sm text-gray-500">QR - Para uso de seguridad</p>
+                                    </div>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="flex w-full items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                    <button data-modal-hide="small-modal" type="button" class="w-full py-2.5 px-5 ms-3 text-md font-extrabold text-white focus:outline-none bg-black rounded-lg border border-[#fd033f] hover:bg-[#fd033f]">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
-            </div>  
+            </div>
+            @endif  
         </div>
     </div>
     
-    <!-- Small Modal -->
-    <div id="small-modal" tabindex="-1" class="fixed top-0 left-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative w-full max-w-md max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-black rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-
-                <!-- Modal body -->
-                <div class="p-4 md:p-5 space-y-4">
-                    <div class="text-center mt-10">
-                        <div class="flex justify-center items-center w-[15rem] mx-auto text-gray-400">
-                            <img src="{{ asset('storage/'.$item->sale_code.'.png') }}" alt="">
-                        </div>
-                        <p class="mt-1 text-sm text-gray-500">QR - Para uso de seguridad</p>
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="flex w-full items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="small-modal" type="button" class="w-full py-2.5 px-5 ms-3 text-md font-extrabold text-white focus:outline-none bg-black rounded-lg border border-[#fd033f] hover:bg-[#fd033f]">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 </div>
