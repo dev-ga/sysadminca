@@ -6,8 +6,6 @@ use App\Models\Sale;
 use App\Models\SaleDetail;
 use App\Models\TasaBcv;
 use Illuminate\Support\Facades\Auth;
-use LaravelQRCode\Facades\QRCode;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class StatusSale extends Component

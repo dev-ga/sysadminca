@@ -25,7 +25,7 @@
                     <li>
                         <button onclick="Livewire.dispatch('openModal', { component: 'modal-bcv' })" class="text-white bg-[#fd033f] hover:bg-[#050708]/90 hover:border hover:border-[#fd033f] font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30">
                             <img class="w-6 h-auto mr-1" src="{{ asset('image/logo_bcv_2.png') }}" alt="">
-                            BCV
+                            BCV : {{ $tasa }}Bs.
                         </button>
                     </li>
 
@@ -36,12 +36,12 @@
         <div id="menu" class="hidden mt-1 bg-Black border-gray-200 shadow-sm border-y dark:bg-gray-800 dark:border-gray-600">
             <div class="grid max-w-screen-xl px-4 py-5 mx-auto dark:text-white sm:grid-cols-2 md:grid-cols-3 md:px-6">
                 <ul aria-labelledby="mega-menu-full-dropdown-button">
-                    <li class="hover:text-black hover:font-extrabold">
+                    {{-- <li class="hover:text-black hover:font-extrabold">
                         <a href="{{ route('bcv') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">BCV</div>
                             <span class="text-sm text-white dark:text-gray-400">{{ $tasa }}Bs. por Dolar</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="hover:text-black hover:font-extrabold">
                         <a href="{{ route('box') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">CAJA - FACTURACION</div>
@@ -54,14 +54,14 @@
                             <span class="text-sm text-white dark:text-gray-400">Cierre del ejercicio financiero. Esto lo realiza el usuario encargado del dia</span>
                         </a>
                     </li>
-                </ul>
-                <ul>
                     <li class="hover:text-black hover:font-extrabold">
                         <a href="{{ route('bills') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">GASTOS</div>
                             <span class="text-sm text-white dark:text-gray-400">Registro de gastos diarios de cualquier tipo</span>
                         </a>
                     </li>
+                </ul>
+                <ul>
                     <li class="hover:text-black hover:font-extrabold">
                         <a href="{{ route('inventory') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">PRODUCTOS</div>
@@ -74,14 +74,14 @@
                           <span class="text-sm text-white dark:text-gray-400">Servicio de compra y venta ON-LINE</span>
                       </a>
                   </li>
+                  <li class="hover:text-black hover:font-extrabold">
+                      <a href="{{ route('daily-sale') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                          <div class="font-semibold">VENTA DIARIA</div>
+                          <span class="text-sm text-white dark:text-gray-400">Tabla de ventas del dia. Esta tabla refleja todos los movimientos del dia actual</span>
+                      </a>
+                  </li>
                 </ul>
                 <ul>
-                    <li class="hover:text-black hover:font-extrabold">
-                        <a href="{{ route('daily-sale') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
-                            <div class="font-semibold">VENTA DIARIA</div>
-                            <span class="text-sm text-white dark:text-gray-400">Tabla de ventas del dia. Esta tabla refleja todos los movimientos del dia actual</span>
-                        </a>
-                    </li>
                     <li class="hover:text-black hover:font-extrabold">
                         <a href="{{ route('profile') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">PERFIL DE USUARIO</div>

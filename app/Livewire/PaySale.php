@@ -17,11 +17,14 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use LaravelQRCode\Facades\QRCode;
+use WireUi\Traits\WireUiActions;
+use Filament\Notifications\Notification;
 
 
 class PaySale extends Component
 {
     use WithFileUploads;
+    use WireUiActions;
 
     public $check;
 
@@ -202,10 +205,24 @@ class PaySale extends Component
 
                 $this->dispatch('payment-registered');
 
+                Notification::make()
+                ->title('COMPRA EXITOSA!')
+                ->body('La compra fue registrada de forma correcta. Gracias!')
+                ->color('success') 
+                ->icon('heroicon-o-document-text')
+                ->iconColor('success')
+                ->send();
+
                 return redirect()->route('status-sale');
             }
         } catch (\Throwable $th) {
-            dd($th);
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
         }
     }
 
@@ -302,11 +319,26 @@ class PaySale extends Component
 
                 $this->dispatch('payment-registered');
 
+                Notification::make()
+                ->title('COMPRA EXITOSA!')
+                ->body('La compra fue registrada de forma correcta. Gracias!')
+                ->color('success') 
+                ->icon('heroicon-o-document-text')
+                ->iconColor('success')
+                ->send();
+
                 return redirect()->route('status-sale');
+
             } else {
             }
         } catch (\Throwable $th) {
-            dd($th);
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
         }
     }
 
@@ -403,11 +435,26 @@ class PaySale extends Component
 
                 $this->dispatch('payment-registered');
 
+                Notification::make()
+                ->title('COMPRA EXITOSA!')
+                ->body('La compra fue registrada de forma correcta. Gracias!')
+                ->color('success') 
+                ->icon('heroicon-o-document-text')
+                ->iconColor('success')
+                ->send();
+
                 return redirect()->route('status-sale');
+
             } else {
             }
         } catch (\Throwable $th) {
-            dd($th);
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
         }
     }
 
@@ -431,6 +478,7 @@ class PaySale extends Component
             $sale->type_sale        = 'on-line';
             $sale->user_id          = Auth::User()->id;
             $sale->user_name        = Auth::User()->name;
+            $sale->qr               = $sale->sale_code.'.png';
             $sale->created_by       = 'sys-on-line';
             $sale->save();
 
@@ -438,6 +486,13 @@ class PaySale extends Component
 
             /** Busco los item adquiridos por el cliente */
             $sale_items = ItemCar::where('user_id', Auth::id())->where('status', 2)->get();
+
+            /* Genero el QR con la informacion de la venta */
+            QRCode::meCard($sale->sale_code, $sale->user_name, Auth::User()->email, Auth::User()->phone)
+            ->setOutfile(Storage::disk("public")->path($sale->sale_code . '.png'))
+            ->setSize(10)
+            ->setMargin(1)
+            ->png();
 
             foreach ($sale_items as $item) {
                 $sale_detail = new SaleDetail();
@@ -465,10 +520,25 @@ class PaySale extends Component
 
             $this->dispatch('payment-registered');
 
-            dd('listo');
+            Notification::make()
+            ->title('COMPRA EXITOSA!')
+            ->body('La compra fue registrada de forma correcta. Gracias!')
+            ->color('success') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('success')
+            ->send();
+
+            return redirect()->route('status-sale');
+
             //code...
         } catch (\Throwable $th) {
-            dd($th);
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
         }
     }
 
@@ -490,6 +560,7 @@ class PaySale extends Component
             $sale->type_sale        = 'on-line';
             $sale->user_id          = Auth::User()->id;
             $sale->user_name        = Auth::User()->name;
+            $sale->qr               = $sale->sale_code.'.png';
             $sale->created_by       = 'sys-on-line';
             $sale->save();
 
@@ -497,6 +568,13 @@ class PaySale extends Component
 
             /** Busco los item adquiridos por el cliente */
             $sale_items = ItemCar::where('user_id', Auth::id())->where('status', 2)->get();
+
+            /* Genero el QR con la informacion de la venta */
+            QRCode::meCard($sale->sale_code, $sale->user_name, Auth::User()->email, Auth::User()->phone)
+            ->setOutfile(Storage::disk("public")->path($sale->sale_code . '.png'))
+            ->setSize(10)
+            ->setMargin(1)
+            ->png();
 
             foreach ($sale_items as $item) {
                 $sale_detail = new SaleDetail();
@@ -524,10 +602,25 @@ class PaySale extends Component
 
             $this->dispatch('payment-registered');
 
-            dd('listo');
+            Notification::make()
+            ->title('COMPRA EXITOSA!')
+            ->body('La compra fue registrada de forma correcta. Gracias!')
+            ->color('success') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('success')
+            ->send();
+
+            return redirect()->route('status-sale');
+
             //code...
         } catch (\Throwable $th) {
-            dd($th);
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
         }
     }
 

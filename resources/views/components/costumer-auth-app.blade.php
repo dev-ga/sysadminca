@@ -18,8 +18,15 @@
         <!-- Filepond -->
         <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+
+        @filamentStyles
+
         @wireUiScripts
-        {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -27,10 +34,16 @@
 
     </head>
     <body class="font-sans antialiased">
+
+        <!-- Notifications WireUI -->
+        <x-notifications position="bottom" />
+
+        <!-- Dialog WireUI -->
         <x-dialog z-index="z-50" blur="md" align="center" class="bg-gray-700"/>
+
         <div class="min-h-screen bg-gray-900 text-white">
 
-            <div class="fixed w-full mb-2">
+            <div class="fixed w-full mb-2 z-50">
                 <livewire:layout.navigation-costumer />    
               </div>
 
@@ -48,6 +61,19 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @filamentScripts
     </body>
+    {{-- <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('notifications-payment-registered', (event) => {
+            $wireui.notify({
+                title: 'Profile saved!',
+                description: 'Your profile was successfully saved',
+                icon: 'success'
+            })
+            });
+        });
+    </script> --}}
 </html>
 
