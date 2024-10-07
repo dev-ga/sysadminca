@@ -6,9 +6,11 @@ use App\Models\ItemCar;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use WireUi\Traits\WireUiActions;
 
 class BottoMenuCostumer extends Component
 {
+    use WireUiActions;
     
     #[On('add-to-card')] 
     public function updateCardList()
