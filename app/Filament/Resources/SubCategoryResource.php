@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SubCategoryResource\Pages;
 use App\Filament\Resources\SubCategoryResource\RelationManagers;
 use App\Models\SubCategory;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class SubCategoryResource extends Resource
 {
@@ -31,6 +33,10 @@ class SubCategoryResource extends Resource
                     ->relationship('category', 'name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
+                ->live(onBlur: true)
+                ->afterStateUpdated(function ($set, $state) {
+                    $set('slug', Str::slug($state));
+                })
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
@@ -38,10 +44,6 @@ class SubCategoryResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
                     ->image(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255)
-                    ->default(1),
             ]);
     }
 

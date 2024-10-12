@@ -149,7 +149,7 @@ class PaySale extends Component
                 $sale = new Sale();
                 $sale->sale_code        = $sale_code;
                 $sale->total_sale       = $this->total_to_pay();
-                $sale->pay_bsd          = Str::replace(',', '.', (Str::replace('.', '', $amount)));
+                $sale->pay_bsd          = $amount;
                 $sale->payment_method   = $this->payment_method;
                 $sale->delivery_method  = $this->delivery_method;
                 $sale->tasa_bcv         = $this->tasa_bcv();
@@ -160,7 +160,7 @@ class PaySale extends Component
                 $sale->status_id        = 2; //facturada
                 $sale->qr               = $sale_code.'.png';
                 $sale->created_by       = 'sys-on-line';
-                $sale->save();
+                // $sale->save();
 
                 /* 2.- Cargamos del datella de la venta */
 
@@ -263,7 +263,7 @@ class PaySale extends Component
                 $sale = new Sale();
                 $sale->sale_code        = $sale_code;
                 $sale->total_sale       = $this->total_to_pay();
-                $sale->pay_usd          = Str::replace(',', '.', (Str::replace('.', '', $amount)));
+                $sale->pay_usd          = $amount;
                 $sale->payment_method   = $this->payment_method;
                 $sale->delivery_method  = $this->delivery_method;
                 $sale->tasa_bcv         = $this->tasa_bcv();
@@ -272,9 +272,7 @@ class PaySale extends Component
                 $sale->user_id          = Auth::User()->id;
                 $sale->user_name        = Auth::User()->name;
                 $sale->status_id        = 5; //Validando el pago
-                $sale->qr               = $sale_code.'.png';
                 $sale->created_by       = 'sys-on-line';
-                $sale->save();
 
                 /* 2.- Cargamos del datella de la venta */
 
@@ -379,7 +377,7 @@ class PaySale extends Component
                 $sale = new Sale();
                 $sale->sale_code        = $sale_code;
                 $sale->total_sale       = $this->total_to_pay();
-                $sale->pay_usd          = Str::replace(',', '.', (Str::replace('.', '', $amount)));
+                $sale->pay_usd          = $amount;
                 $sale->payment_method   = $this->payment_method;
                 $sale->delivery_method  = $this->delivery_method;
                 $sale->tasa_bcv         = $this->tasa_bcv();
@@ -388,9 +386,7 @@ class PaySale extends Component
                 $sale->user_id          = Auth::User()->id;
                 $sale->user_name        = Auth::User()->name;
                 $sale->status_id        = 5; //Validando el pago
-                $sale->qr               = $sale_code.'.png';
                 $sale->created_by       = 'sys-on-line';
-                $sale->save();
 
                 /* 2.- Cargamos del datella de la venta */
 

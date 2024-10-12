@@ -32,20 +32,21 @@ class BottoMenuCostumer extends Component
 
     public function home(){
         // $this->redirectRoute('search-item');
-        return $this->redirect('/search', navigate: true);
+        $this->redirectRoute('search-item', navigate: true);
+    }
+
+    public function profile(){
+        $this->redirectRoute('profile-costumer', navigate: true);
+        // return $this->redirect('/search', navigate: false);
     }
 
     public function car(){
-        return $this->redirect('/costumer/c/c', navigate: true);
+        $this->redirectRoute('shopping-car', navigate: true);
     }
 
     public function status_sale(){
 
-        return $this->redirect('/costumer/s/s', navigate: false);
-    }
-
-    public function profile(){
-        return $this->redirect('/costumer/p', navigate: true);
+        $this->redirectRoute('status-sale', navigate: false);
     }
     
     public function render()

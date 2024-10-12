@@ -22,7 +22,7 @@ class SaleResource extends Resource
 {
     protected static ?string $model = Sale::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-adjustments-horizontal';
+    protected static ?string $navigationIcon = 'heroicon-c-presentation-chart-bar';
 
     protected static ?string $navigationGroup = 'Ventas';
 
@@ -123,6 +123,7 @@ class SaleResource extends Resource
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'on-line' => 'info',
+                        'tienda-fisica' => 'success',
                     })
                     ->searchable(),
                 
