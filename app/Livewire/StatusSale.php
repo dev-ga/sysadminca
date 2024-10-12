@@ -18,7 +18,7 @@ class StatusSale extends Component
     }
 
     public function sale(){
-        $detail_sale = Sale::where('user_id', Auth::User()->id)->get();
+        $detail_sale = Sale::where('user_id', Auth::User()->id)->orderBy('created_at', 'desc')->get();
         return $detail_sale;
         
     }

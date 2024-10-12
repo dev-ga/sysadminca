@@ -28,7 +28,7 @@
           <div class="fixed top-1 left-1 mb-2 flex justify-center p-1">
             <div class="flex justify-start">
               <a
-                href="{{ route('login') }}"
+                href="{{ route('login-costumer') }}"
                 type="button"
                 class="rounded-md border border-[#fd033f] p-4 uppercase leading-normal text-surface shadow-dark-3 shadow-black/30 transition duration-150 ease-in-out hover:shadow-dark-1 focus:shadow-dark-1 focus:outline-none focus:ring-0 active:shadow-1 text-white hover:bg-[#fd033f]"
                 data-twe-ripple-init

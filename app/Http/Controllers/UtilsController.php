@@ -108,4 +108,19 @@ class UtilsController extends Controller
             dd($th);
         }
     }
+
+    static function facturation_payment_method_usd($amount_usd, $payment_method_usd)
+    {
+        
+    }
+
+    static function facturation_payment_method_bsd($amount_bsd, $payment_method_bsd)
+    {
+        
+    }
+
+    static function facturation_multiple($amount_usd, $amount_bsd, $payment_method_usd, $payment_method_bsd)
+    {
+        
+    }
 }

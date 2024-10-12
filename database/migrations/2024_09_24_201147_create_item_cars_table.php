@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('code');
             $table->integer('inventory_id');
             $table->integer('user_id');
+            $table->integer('status');
+            $table->integer('quantity');
+            $table->string('image');
             $table->timestamps();
         });
     }

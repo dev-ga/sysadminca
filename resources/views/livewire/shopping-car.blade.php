@@ -23,29 +23,33 @@
                                   </svg>                                  
                             </div>
                         </div>
-                        <div class="flex flex-col gap-2 dark:text-white w-full bg-gray-800 dark:bg-neutral-900 py-5 px-1 rounded-3xl shadow-md">
+                        <div class="flex flex-col gap-2 dark:text-white w-full bg-gray-800 dark:bg-neutral-900 py-5 px-5 rounded-3xl shadow-md">
                             <div class="flex justify-between w-full">
                                 <div class="flex justify-start items-center">
                                     <div class="p-1">
-                                        <img class="w-20" src="https://static.vecteezy.com/system/resources/thumbnails/030/761/291/small/modern-sport-sneakers-blue-color-ai-generative-free-png.png" alt="product image" />
+                                        <img class="w-20" src="{{ $item->image }}" alt="product image" />
                                     </div>
                                     <div class="py-2 px-1">
                                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                            <span class="text-sm text-gray-500">{{ $item->inventory->code }}</span>
+                                            <span class="text-sm text-gray-200">{{ $item->inventory->code }}</span>
                                         </div>
                                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                            <span class="text-sm text-gray-500">Talla:</span>
-                                            <span class="text-sm text-gray-500">{{ $item->inventory->size }}</span>
+                                            <span class="text-sm text-gray-200">Talla:</span>
+                                            <span class="text-sm text-gray-200">{{ $item->inventory->size }}</span>
                                         </div>
                                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                            <span class="text-sm text-gray-500">Cantidad:</span>
-                                            <span class="text-sm text-gray-500">{{ $item->quantity }}</span>
+                                            <span class="text-sm text-gray-200">Precio:</span>
+                                            <span class="text-sm text-gray-200">${{ round($item->inventory->price) }}</span>
+                                        </div>
+                                        <div class="flex items-center space-x-1 rtl:space-x-reverse">
+                                            <span class="text-sm text-gray-200">Cantidad:</span>
+                                            <span class="text-sm text-gray-200">{{ $item->quantity }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="p-2 my-auto">
                                     <div class="text-3xl text-white font-extrabold">
-                                        ${{ round($item->inventory->price) }}
+                                        ${{ round($item->inventory->price * $item->quantity) }}
                                     </div>
                                 </div>
                             </div>
@@ -54,25 +58,25 @@
                 @endforeach
                 @if ($total_item_car != 0)
                     <div class="flex flex-col mt-4">
-                        <div class="flex flex-col gap-2 dark:text-white w-full bg-black border border-[#fd033f] py-5 px-1 rounded-3xl shadow-md">
+                        <div class="flex flex-col gap-2 dark:text-white w-full bg-black border border-[#fd033f] py-5 px-5 rounded-3xl shadow-md">
                             <div class="flex justify-between w-full">
                                 <div class="flex justify-start items-center">
                                     <div class="py-2 px-1">
                                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                            <span class="text-sm text-gray-300">Facturacion:</span>
+                                            <span class="text-xs text-gray-300">Facturacion:</span>
                                         </div>
                                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                            <span class="text-sm text-gray-300">Total de Articulos:</span>
-                                            <span class="text-sm text-gray-300">{{ ($total_item_car > 0) ? $total_item_car : 0 }}</span>
+                                            <span class="md:text-md text-xs text-gray-300">Total de Articulos:</span>
+                                            <span class="md:text-md text-xs text-gray-300">{{ ($total_item_car > 0) ? $total_item_car : 0 }}</span>
                                         </div>
                                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                            <span class="text-sm text-gray-300">BCV:</span>
-                                            <span class="text-sm text-gray-300">Bs. {{ number_format(($bcv), 2, ',', '.') }}</span>
+                                            <span class="text-md text-gray-300">BCV:</span>
+                                            <span class="text-md text-gray-300">Bs. {{ number_format(($bcv), 2, ',', '.') }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="p-2 mt-auto">
-                                    <div class="flex flex-col text-sm text-white bg-black">
+                                    <div class="flex flex-col text-md text-white bg-black">
                                         <span class="text-right font-extrabold text-gray-300">Total($)= ${{ $total_pay }}</span>
                                         <span class="text-right font-extrabold text-gray-300">Total(Bs.)= {{ number_format(($total_pay_bsd), 2, ',', '.') ? number_format(($total_pay_bsd), 2, ',', '.') : 0.00 }}</span>
                                     </div>

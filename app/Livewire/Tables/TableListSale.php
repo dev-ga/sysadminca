@@ -100,8 +100,7 @@ class TableListSale extends Component implements HasForms, HasTable
                  Tables\Actions\Action::make('Actualizar')
                  ->action(function (Sale $record) {
                     $record->status_id = 2;
-                    $record->save();
-                    
+                    $record->save(); 
                  })
                  ->requiresConfirmation('¿Estás seguro de actualizar esta orden?'),
             ])

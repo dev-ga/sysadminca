@@ -23,9 +23,9 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subCategories(): HasMany
+    public function subCategory(): HasMany
     {
-        return $this->hasMany(SubCategory::class, 'id', 'category_id');
+        return $this->hasMany(SubCategory::class);
     }
 
         /**
