@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2)->default(0.00);
             $table->decimal('total_usd', 10, 2)->default(0.00);
             $table->decimal('total_bsd', 10, 2)->default(0.00);
+            $table->string('created_by')->nullable();
             $table->timestamps();
         });
     }

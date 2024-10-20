@@ -69,21 +69,34 @@ class CommissionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('aplication')
+                ->label('Aplicacion')
+                ->icon('heroicon-c-swatch')
+                ->color('success')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('user.name')
+                // ->label('Usuario')
+                // ->icon('heroicon-m-user-circle')
+                // ->color('warning')
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('type_user')
+                    ->label('Rol')
+                    ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('porcent')
+                    ->label('Porcentaje')
+                    ->icon('heroicon-c-receipt-percent')
+                    ->color('success')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                ->label('Fecha de creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                ->label('Fecha de actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

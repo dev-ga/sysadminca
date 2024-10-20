@@ -28,61 +28,61 @@ class SaleResource extends Resource
 
     protected static ?string $navigationLabel = 'Dashboard de Venta';
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('sale_code')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('total_sale')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('payment_method')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('tasa_bcv')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('pay_bsd')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('pay_usd')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('date')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('type_sale')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('user_id')
-                    ->numeric(),
-                Forms\Components\TextInput::make('user_name')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('commission_bsd')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('commission_usd')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->numeric()
-                    ->default(1),
-                Forms\Components\TextInput::make('created_by')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('delivery_method')
-                    ->maxLength(100),
-                Forms\Components\FileUpload::make('image')
-                    ->image(),
-            ]);
-    }
+    // public static function form(Form $form): Form
+    // {
+    //     return $form
+    //         ->schema([
+    //             Forms\Components\TextInput::make('sale_code')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('total_sale')
+    //                 ->required()
+    //                 ->numeric()
+    //                 ->default(0.00),
+    //             Forms\Components\TextInput::make('payment_method')
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('tasa_bcv')
+    //                 ->required()
+    //                 ->numeric()
+    //                 ->default(0.00),
+    //             Forms\Components\TextInput::make('pay_bsd')
+    //                 ->required()
+    //                 ->numeric()
+    //                 ->default(0.00),
+    //             Forms\Components\TextInput::make('pay_usd')
+    //                 ->required()
+    //                 ->numeric()
+    //                 ->default(0.00),
+    //             Forms\Components\TextInput::make('date')
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('type_sale')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('user_id')
+    //                 ->numeric(),
+    //             Forms\Components\TextInput::make('user_name')
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('commission_bsd')
+    //                 ->required()
+    //                 ->numeric()
+    //                 ->default(0.00),
+    //             Forms\Components\TextInput::make('commission_usd')
+    //                 ->required()
+    //                 ->numeric()
+    //                 ->default(0.00),
+    //             Forms\Components\TextInput::make('status')
+    //                 ->required()
+    //                 ->numeric()
+    //                 ->default(1),
+    //             Forms\Components\TextInput::make('created_by')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('delivery_method')
+    //                 ->maxLength(100),
+    //             Forms\Components\FileUpload::make('image')
+    //                 ->image(),
+    //         ]);
+    // }
 
     public static function table(Table $table): Table
     {
@@ -94,29 +94,60 @@ class SaleResource extends Resource
 
                 Tables\Columns\TextColumn::make('user_name')
                     ->label('Cliente')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('payment_method')
                     ->label('Forma de Pago')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'pago-en-tienda' => 'success',
-                        'efectivo-dolares' => 'success',
-                        'pago-movil' => 'success',
-                        'zelle' => 'success',
-                        'banesco-panama' => 'success',
+                        'pago-en-tienda'        => 'success',
+                        'efectivo-dolares'      => 'success',
+                        'pago-movil'            => 'success',
+                        'zelle'                 => 'success',
+                        'banesco-panama'        => 'success',
+                        'transferencias'        => 'success',
+                        'efectivo-bolivares'    => 'success',
+                        'multi-moneda'          => 'success',
                     })
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                    Tables\Columns\TextColumn::make('multiMoneda_method_usd')
+                    ->label('Metodo USD')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'efectivo-dolares'      => 'success',
+                        'zelle'                 => 'success',
+                        'banesco-panama'        => 'success',
+                        'N/A'                   => 'info',
+                    })
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                    Tables\Columns\TextColumn::make('multiMoneda_method_bsd')
+                    ->label('Metodo BSD')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'pago-movil'            => 'success',
+                        'transferencias'        => 'success',
+                        'efectivo-bolivares'    => 'success',
+                        'N/A'                   => 'info',
+                    })
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('delivery_method')
                     ->label('Tipo Envio')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'retiro-tienda-fisica' => 'danger',
-                        'pickup' => 'danger',
-                        'delivery' => 'danger',
+                        'retiro-tienda-fisica'  => 'danger',
+                        'pickup'                => 'danger',
+                        'delivery'              => 'danger',
+                        'envio-nacional'        => 'danger',
+                        'N/A'                   => 'info',
                     })
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('type_sale')
                     ->label('Tipo Venta')
@@ -174,6 +205,14 @@ class SaleResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
+                Tables\Columns\TextColumn::make('commission_usd')
+                    ->alignCenter()
+                    ->label('Comision($)')
+                    ->money('USD')
+                    ->summarize(Sum::make()
+                        ->money('USD')
+                        ->label('Total'))
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('commission_bsd')
                     ->alignCenter()
@@ -182,18 +221,8 @@ class SaleResource extends Resource
                     ->summarize(Sum::make()
                         ->money('VES')
                         ->label('Total'))
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
 
-                Tables\Columns\TextColumn::make('commission_usd')
-                    ->alignCenter()
-                    ->label('Comision($)')
-                    ->money('USD')
-                    ->summarize(Sum::make()
-                        ->money('USD')
-                        ->label('Total'))
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
 
 
                 Tables\Columns\TextColumn::make('created_by')

@@ -36,30 +36,31 @@
                     <div class="grid grid-cols-1 gap-2">
                         <div class="px-1">
                             <label for="small" class="block mb-2 text-sm font-medium text-white">Empleado</label>
-                            <select id="small" class="block w-full p-2 mb-1 text-sm text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select wire:model.live="employee" id="small" class="block w-full p-2 mb-1 text-sm text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected></option>
                                 @foreach ($employees as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
+                            <x-input-error :messages="$errors->get('employee')" class="mt-1" />
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div class="px-1">
                             <label for="small" class="block mb-2 text-sm font-medium text-white">Metodo de Pago($)</label>
-                            <select id="small" class="block w-full p-2 mb-1 text-sm text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select wire:model.live="payment_method_usd" id="small" class="block w-full p-2 mb-1 text-sm text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected></option>
                                 @foreach ($method_pay_usd as $item)
-                                    <option value="{{ $item->description }}">{{ $item->description }}</option>
+                                    <option value="{{ $item->slug }}">{{ $item->description }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="px-1">
                             <label for="small" class="block mb-2 text-sm font-medium text-white">Metodo de Pago(Bs.)</label>
-                            <select id="small" class="block w-full p-2 mb-1 text-sm text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select wire:model.live="payment_method_bsd" id="small" class="block w-full p-2 mb-1 text-sm text-white border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected></option>
                                 @foreach ($method_pay_bsd as $item)
-                                    <option value="{{ $item->description }}">{{ $item->description }}</option>
+                                    <option value="{{ $item->slug }}">{{ $item->description }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -67,18 +68,18 @@
                     <div class="grid grid-cols-2 gap-2">
                         <div class="px-2">
                             <label for="default-input" class="block mb-2 text-sm font-medium text-white dark:text-white">Monto($)</label>
-                            <input type="text" id="default-input" class="bg-black border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0.00">
+                            <input wire:keydown.enter="calculo($event.target.value)"  wire:model.live="amount_usd" type="text" id="default-input" class="bg-black border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="$0.00">
                             {{-- <x-input wire:keydown.enter="calculo($event.target.value)" wire:model.live="valor_uno" placeholder="0.00"/> --}}
                         </div>
                         <div class="px-2">
                             <label for="default-input" class="block mb-2 text-sm font-medium text-white dark:text-white">Monto(Bs.)</label>
-                            <input type="text" id="default-input" class="bg-black border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0.00">
+                            <input wire:model.live="amount_bsd" value="{{ $amount_bsd }}" type="text" id="default-input" class="bg-black border border-gray-300 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bs. 0,00" disabled>
                             {{-- <x-input wire:model.live="valor_dos" placeholder="0.00" disabled/> --}}
                         </div>
                     </div>
     
                     <div class="">
-                        <button type="button" wire:click="facturar_servicio()" class="inline-flex w-full justify-center rounded-lg bg-red-600 px-3 py-3 mt-7 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                        <button type="button" wire:click="bill()" class="inline-flex w-full justify-center rounded-lg bg-[#fd033f] px-3 py-3 mt-7 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
                             <svg xmlns="http://www.w3.org/2000/svg" wire:loading wire:target="facturar_servicio" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin h-5 w-5 mr-3">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                             </svg>

@@ -192,7 +192,7 @@ class PaySale extends Component
                     $sale_detail->user_id           = Auth::User()->id;
                     $sale_detail->date              = now()->format('d-m-Y');
                     $sale_detail->created_by        = 'sys-on-line';
-                    $sale_detail->status_id         = 2; //Validando el pago
+                    $sale_detail->status_id         = 2; //facturada
                     $sale_detail->save();
                 }
 
@@ -271,7 +271,7 @@ class PaySale extends Component
                 $sale->type_sale        = 'on-line';
                 $sale->user_id          = Auth::User()->id;
                 $sale->user_name        = Auth::User()->name;
-                $sale->status_id        = 5; //Validando el pago
+                $sale->status_id        = 2; //facturada
                 $sale->created_by       = 'sys-on-line';
 
                 /* 2.- Cargamos del datella de la venta */
@@ -304,7 +304,7 @@ class PaySale extends Component
                     $sale_detail->user_id           = Auth::User()->id;
                     $sale_detail->date              = now()->format('d-m-Y');
                     $sale_detail->created_by        = 'sys-on-line';
-                    $sale_detail->status_id         = 5; //Validando el pago
+                    $sale_detail->status_id         = 2; //facturada
                     $sale_detail->save();
                 }
 

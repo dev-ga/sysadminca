@@ -10,6 +10,8 @@ class ListPaymentMethods extends ListRecords
 {
     protected static string $resource = PaymentMethodResource::class;
 
+    protected ?string $heading = 'Metodos de Pago';
+
     protected function getHeaderActions(): array
     {
         return [
