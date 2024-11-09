@@ -27,11 +27,11 @@ return new class extends Migration
             $table->string('variation_3')->nullable();
             $table->string('variation_4')->nullable();
             $table->string('variation_5')->nullable();
-            $table->string('date');
             $table->decimal('price', 10, 2)->default(0.00);
             $table->integer('quantity');
             $table->string('image')->nullable();
             $table->string('created_by');
+            $table->integer('pre_quantity')->nullable();
             $table->timestamps();
         });
     }

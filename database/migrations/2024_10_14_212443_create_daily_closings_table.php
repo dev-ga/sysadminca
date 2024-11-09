@@ -20,19 +20,12 @@ return new class extends Migration
             $table->decimal('amount_debito',8, 2)->default(0.00);
             $table->decimal('amount_credito',8, 2)->default(0.00);
             $table->decimal('amount_visaMaster',8, 2)->default(0.00);
-
             $table->decimal('total_efectivo_usd',8, 2)->default(0.00);
             $table->decimal('total_efectivo_bsd',8, 2)->default(0.00);
             $table->decimal('total_zelle',8, 2)->default(0.00);
             $table->decimal('total_banesco_panama',8, 2)->default(0.00);
             $table->decimal('total_pago_movil',8, 2)->default(0.00);
-            $table->decimal('total_transferencia',8, 2)->default(0.00);
-
-            $table->decimal('total_usd',8, 2)->default(0.00);
-            $table->decimal('total_bsd',8, 2)->default(0.00);
-
             $table->string('created_by')->nullable();
-            
             $table->timestamps();
         });
     }

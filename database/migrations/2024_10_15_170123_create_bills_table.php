@@ -17,8 +17,11 @@ return new class extends Migration
             $table->string('description');
             $table->string('payment_method');
             $table->string('reference')->default('N/A');
+            $table->decimal('amount', 8, 2)->nullable()->default(0.00);
             $table->decimal('usd', 8, 2)->nullable()->default(0.00);
             $table->decimal('bsd', 8, 2)->nullable()->default(0.00);
+            $table->decimal('amount_usd', 8, 2)->nullable()->default(0.00);
+            $table->decimal('amount_bsd', 8, 2)->nullable()->default(0.00);
             $table->string('created_by');
             $table->timestamps();
         });

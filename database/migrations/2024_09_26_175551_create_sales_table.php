@@ -23,6 +23,8 @@ return new class extends Migration
             $table->decimal('pay_bsd', 8, 2)->default(0);
             $table->decimal('pay_usd', 8, 2)->default(0);
             $table->string('date')->nullable();
+            $table->integer('agency_id')->nullable();
+            $table->string('sucursal_id')->nullable();
             $table->string('type_sale');
             $table->integer('user_id')->nullable();
             $table->string('user_name')->nullable();
@@ -31,6 +33,7 @@ return new class extends Migration
             $table->integer('proof_payment_id')->nullable();
             $table->integer('status_id')->default(1);
             $table->string('qr')->nullable();
+            $table->integer('sold_by')->default(1);
             $table->string('created_by');
             $table->timestamps();
         });
