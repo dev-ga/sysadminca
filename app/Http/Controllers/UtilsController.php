@@ -185,8 +185,11 @@ class UtilsController extends Controller
                     $sale_details->date = now()->format('d-m-Y');
                     $sale_details->status_id = 2;
                     $sale_details->created_by = $user;
-                    $sale_details->product = $inventory->product;
                     $sale_details->save();
+
+                    //Actualizamos el inventario
+                    $inventory->quantity = $inventory->quantity - $item->quantity;
+                    $inventory->save();
                 }
 
                 return true;
@@ -253,8 +256,11 @@ class UtilsController extends Controller
                     $sale_details->date = now()->format('d-m-Y');
                     $sale_details->status_id = 2;
                     $sale_details->created_by = $user;
-                    $sale_details->product = $inventory->product;
                     $sale_details->save();
+
+                    //Actualizamos el inventario
+                    $inventory->quantity = $inventory->quantity - $item->quantity;
+                    $inventory->save();
                 }
 
                 return true;
@@ -339,8 +345,11 @@ class UtilsController extends Controller
                     $sale_details->date = now()->format('d-m-Y');
                     $sale_details->status_id = 2;
                     $sale_details->created_by = $user;
-                    $sale_details->product = $inventory->product;
                     $sale_details->save();
+
+                    //Actualizamos el inventario
+                    $inventory->quantity = $inventory->quantity - $item->quantity;
+                    $inventory->save();
                 }
 
                 return true;

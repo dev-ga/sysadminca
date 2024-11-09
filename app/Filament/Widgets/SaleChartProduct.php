@@ -11,12 +11,6 @@ use Flowframe\Trend\TrendValue;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-// 24694716
-// VZLA
-// 04242697967
-
-
-
 class SaleChartProduct extends ChartWidget
 {
     // use InteractsWithPageFilters;
@@ -38,22 +32,22 @@ class SaleChartProduct extends ChartWidget
     protected function getData(): array
     {
         $data = DB::table('sale_details')
-        ->select(DB::raw('count(quantity) as quantity, inventory_id, product'))
-        ->groupBy('inventory_id')
+        ->select(DB::raw('SUM(quantity) as quantity, sku'))
+        ->groupBy('sku')
         ->get();
  
-    return [
+        return [
 
-        'datasets' => [
-            [
-                'label' => 'Ventas diaria de productos',
-                'data' => $data->map(fn ($data) => $data->quantity),
-                'backgroundColor' => '#22c55e',
-                'borderColor' => '#22c55e',
-                'fill' => true,
-            ],
-            ],
-            'labels' => ($data->map(fn ($data) => $data->product)),
+            'datasets' => [
+                    [
+                        'label' => 'Movimiento de Productos',
+                        'data' => $data->map(fn ($data) => $data->quantity),
+                        'backgroundColor' => '#22c55e',
+                        'borderColor' => '#22c55e',
+                        'fill' => true,
+                    ],
+                ],
+                'labels' => ($data->map(fn ($data) => $data->sku)),
         ];
     }
 

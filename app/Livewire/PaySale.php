@@ -6,6 +6,7 @@ use App\Models\Bank;
 use App\Models\ItemCar;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use App\Models\Inventory;
 use App\Models\TasaBcv;
 use App\Http\Controllers\UtilsController;
 use App\Models\Agency;
@@ -229,6 +230,11 @@ class PaySale extends Component
                     $sale_detail->created_by        = 'sys-on-line';
                     $sale_detail->status_id         = 2; //facturada
                     $sale_detail->save();
+
+                    //actualizamos el inventario
+                    $inventory = Inventory::find($item->inventory_id);
+                    $inventory->quantity = $inventory->quantity - $item->quantity;
+                    $inventory->save();
                 }
 
                 /* 3.- Actualizo el status de los item en la tabla item-car */
@@ -344,6 +350,11 @@ class PaySale extends Component
                     $sale_detail->created_by        = 'sys-on-line';
                     $sale_detail->status_id         = 2; //facturada
                     $sale_detail->save();
+
+                    //actualizamos el inventario
+                    $inventory = Inventory::find($item->inventory_id);
+                    $inventory->quantity = $inventory->quantity - $item->quantity;
+                    $inventory->save();
                 }
 
                 /* 3.- Actualizo el status de los item en la tabla item-car */
@@ -461,6 +472,11 @@ class PaySale extends Component
                     $sale_detail->created_by        = 'sys-on-line';
                     $sale_detail->status_id         = 5; //Validando el pago
                     $sale_detail->save();
+
+                    //actualizamos el inventario
+                    $inventory = Inventory::find($item->inventory_id);
+                    $inventory->quantity = $inventory->quantity - $item->quantity;
+                    $inventory->save();
                 }
 
                 /* 3.- Actualizo el status de los item en la tabla item-car */
@@ -549,6 +565,11 @@ class PaySale extends Component
                 $sale_detail->date = now()->format('d-m-Y');
                 $sale_detail->created_by = 'sys-on-line';
                 $sale_detail->save();
+
+                //actualizamos el inventario
+                $inventory = Inventory::find($item->inventory_id);
+                $inventory->quantity = $inventory->quantity - $item->quantity;
+                $inventory->save();
             }
 
             /**Actualizo el status de los item en la tabla item-car */
@@ -657,6 +678,11 @@ class PaySale extends Component
                 $sale_detail->date = now()->format('d-m-Y');
                 $sale_detail->created_by = 'sys-on-line';
                 $sale_detail->save();
+
+                //actualizamos el inventario
+                $inventory = Inventory::find($item->inventory_id);
+                $inventory->quantity = $inventory->quantity - $item->quantity;
+                $inventory->save();
             }
 
             /**Actualizo el status de los item en la tabla item-car */
@@ -689,7 +715,6 @@ class PaySale extends Component
             ->send();
         }
     }
-
 
     public function render()
     {
