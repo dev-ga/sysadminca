@@ -72,6 +72,28 @@ class UtilsController extends Controller
         }
     }
 
+    static function efectivo_usd($name, $email, $image, $amount)
+    {
+        try {
+            
+            /**Cargamos la informacion del pago en la tabla para respaldar el movimiento */
+            $payment = new ProofPayment();
+            $payment->sale_code = 'CA-S-'.random_int(11111111, 99999999);
+            $payment->user_id = Auth::User()->id;
+            $payment->zelle_email = $email;
+            $payment->zelle_name = $name;
+            $payment->amount = $amount;
+            $payment->image = $image;
+            $payment->save();
+            
+            return $payment->sale_code;
+
+            //code...
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
     static function zelle($name, $email, $image, $amount)
     {
         try {
@@ -163,6 +185,7 @@ class UtilsController extends Controller
                     $sale_details->date = now()->format('d-m-Y');
                     $sale_details->status_id = 2;
                     $sale_details->created_by = $user;
+                    $sale_details->product = $inventory->product;
                     $sale_details->save();
                 }
 
@@ -230,6 +253,7 @@ class UtilsController extends Controller
                     $sale_details->date = now()->format('d-m-Y');
                     $sale_details->status_id = 2;
                     $sale_details->created_by = $user;
+                    $sale_details->product = $inventory->product;
                     $sale_details->save();
                 }
 
@@ -315,6 +339,7 @@ class UtilsController extends Controller
                     $sale_details->date = now()->format('d-m-Y');
                     $sale_details->status_id = 2;
                     $sale_details->created_by = $user;
+                    $sale_details->product = $inventory->product;
                     $sale_details->save();
                 }
 

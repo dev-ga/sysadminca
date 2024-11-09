@@ -64,4 +64,34 @@ class Sale extends Model
     {
         return $this->belongsTo(ProofPayment::class, 'proof_payment_id', 'id');
     }
+
+    /**
+     * Get the statusSale associated with the Sale
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function agency(): BelongsTo
+    {
+        return $this->belongsTo(Agency::class, 'agency_id', 'id');
+    }
+
+    /**
+     * Get the statusSale associated with the Sale
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function sucursal(): BelongsTo
+    {
+        return $this->belongsTo(AgencyDetail::class, 'sucursal_id', 'id');
+    }
+
+    /**
+     * Get the statusSale associated with the Sale
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function employee(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'sold_by');
+    }
 }

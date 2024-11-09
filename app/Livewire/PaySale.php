@@ -8,7 +8,10 @@ use App\Models\Sale;
 use App\Models\SaleDetail;
 use App\Models\TasaBcv;
 use App\Http\Controllers\UtilsController;
+use App\Models\Agency;
+use App\Models\AgencyDetail;
 use App\Models\ProofPayment;
+use App\Models\State;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Validate;
@@ -19,6 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use LaravelQRCode\Facades\QRCode;
 use WireUi\Traits\WireUiActions;
 use Filament\Notifications\Notification;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 
 class PaySale extends Component
@@ -48,6 +52,29 @@ class PaySale extends Component
     public $pm_phone;
     public $pm_ref;
     public $pm_img;
+
+    /**Efectivo Usd */
+    public $usd_img;
+
+    public $agencies;
+    public $states;
+    public $sucursales = [];
+
+    public $agencyid;
+    public $stateid;
+    public $sucursalid;
+
+    public function mount(){
+        $this->agencies = Agency::all();
+        $this->states = State::all();
+        $this->sucursales = collect();
+    }
+
+    public function updatedAgencyid($value){
+        $this->sucursales = AgencyDetail::where('agency_id', $value)
+        ->where('state_id', $this->stateid)
+        ->get();
+    }
 
     public function tasa_bcv()
     {
@@ -89,6 +116,11 @@ class PaySale extends Component
     public function delete_pm_img()
     {
         $this->reset('pm_img');
+    }
+
+    public function delete_usd_img()
+    {
+        $this->reset('efectivoUsd_img');
     }
 
     public function delete_zelle_img()
@@ -152,6 +184,9 @@ class PaySale extends Component
                 $sale->pay_bsd          = $amount;
                 $sale->payment_method   = $this->payment_method;
                 $sale->delivery_method  = $this->delivery_method;
+                $sale->agency_id        = $this->agencyid;
+                $sale->sucursal_id      = $this->sucursalid;
+                $sale->code_sucursal    = AgencyDetail::find($this->sucursalid)->code;
                 $sale->tasa_bcv         = $this->tasa_bcv();
                 $sale->date             = now()->format('d-m-Y');
                 $sale->type_sale        = 'on-line';
@@ -266,6 +301,9 @@ class PaySale extends Component
                 $sale->pay_usd          = $amount;
                 $sale->payment_method   = $this->payment_method;
                 $sale->delivery_method  = $this->delivery_method;
+                $sale->agency_id        = $this->agencyid;
+                $sale->sucursal_id      = $this->sucursalid;
+                $sale->code_sucursal    = AgencyDetail::find($this->sucursalid)->code;
                 $sale->tasa_bcv         = $this->tasa_bcv();
                 $sale->date             = now()->format('d-m-Y');
                 $sale->type_sale        = 'on-line';
@@ -380,6 +418,9 @@ class PaySale extends Component
                 $sale->pay_usd          = $amount;
                 $sale->payment_method   = $this->payment_method;
                 $sale->delivery_method  = $this->delivery_method;
+                $sale->agency_id        = $this->agencyid;
+                $sale->sucursal_id      = $this->sucursalid;
+                $sale->code_sucursal    = AgencyDetail::find($this->sucursalid)->code;
                 $sale->tasa_bcv         = $this->tasa_bcv();
                 $sale->date             = now()->format('d-m-Y');
                 $sale->type_sale        = 'on-line';
@@ -469,6 +510,9 @@ class PaySale extends Component
             $sale->total_sale       = $this->total_to_pay();
             $sale->payment_method   = 'pago-en-tienda';
             $sale->delivery_method  = $this->delivery_method;
+            $sale->agency_id        = $this->agencyid;
+            $sale->sucursal_id      = $this->sucursalid;
+            $sale->code_sucursal    = AgencyDetail::find($this->sucursalid)->code;
             $sale->tasa_bcv         = $this->tasa_bcv();
             $sale->date             = now()->format('d-m-Y');
             $sale->type_sale        = 'on-line';
@@ -542,15 +586,41 @@ class PaySale extends Component
     /*******************************************************/
     public function save_efectivo_dolares()
     {
+        /* Reglas de validacion */
+        $validated = Validator::make(
+            [
+                'usd_img'   => $this->usd_img,
+            ],
+            [
+                'usd_img'   => 'required|image|max:1024'
+            ],
+            [
+                'required'  => 'Campo requerido',
+                'image'     => 'Debe cargar una imagen',
+                'max'       => 'La imagen es muy grande'
+            ]
+        )->validate();
 
         try {
 
+            /* Cargamos la imagen del comprobante */
+            $image = $this->usd_img->store('EfectivoUsd', 'public');
+
+            /* Monto del pago en Efectivo */
+            $amount = $this->total_to_pay();
+
+            /* Almacenamos el pago para optener el codigo de venta */
+            $sale_code = UtilsController::efectivo_usd(Auth::user()->name, Auth::user()->email, $image, $amount);
+
             /** 1.- Cargamos la informacion en la tabla de ventas */
             $sale = new Sale();
-            $sale->sale_code        = 'CA-S-' . random_int(11111111, 99999999);
+            $sale->sale_code        = $sale_code;
             $sale->total_sale       = $this->total_to_pay();
             $sale->payment_method   = $this->payment_method;
             $sale->delivery_method  = $this->delivery_method;
+            $sale->agency_id        = $this->agencyid;
+            $sale->sucursal_id      = $this->sucursalid;
+            $sale->code_sucursal    = AgencyDetail::find($this->sucursalid)->code;
             $sale->tasa_bcv         = $this->tasa_bcv();
             $sale->date             = now()->format('d-m-Y');
             $sale->type_sale        = 'on-line';

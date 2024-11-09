@@ -103,7 +103,7 @@ class Inventory extends Component
                         $inventario = new ModelsInventory();
                         $inventario->sku = $this->sku;
                         $inventario->product = $this->sku;
-                        $inventario->code = $this->code;
+                        $inventario->code = 'CA-'.random_int(11111111, 99999999);
                         $inventario->category_id = $this->categoryId;
                         $inventario->subcategory_id = $this->subCategoryId;
                         $inventario->size = $array_tallas_medias[$i];
@@ -120,7 +120,7 @@ class Inventory extends Component
                 $inventario = new ModelsInventory();
                 $inventario->sku = $this->sku;
                 $inventario->product = $this->sku;
-                $inventario->code = $this->code;
+                $inventario->code = 'CA-'.random_int(11111111, 99999999);
                 $inventario->category_id = $this->categoryId;
                 $inventario->subcategory_id = $this->subCategoryId;
                 $inventario->size = $this->size;
@@ -131,6 +131,8 @@ class Inventory extends Component
                 $inventario->save();
     
             }
+
+            $this->dispatch('inventory-updated');
             
             Notification::make()
                 ->title('CARGA EXITOSA!')

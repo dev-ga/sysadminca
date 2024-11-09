@@ -24,7 +24,7 @@ class TableSaleDetail extends Component implements HasForms, HasTable
         return $table
             ->heading('Detalle de venta ON-LINE')
             ->description('Tabla de detalle para ventas ON-LINE')
-            ->query(SaleDetail::query())
+            ->query(SaleDetail::query()->orderBy('created_at',  'desc'))
             ->columns([
 
                 Tables\Columns\TextColumn::make('sale_code')

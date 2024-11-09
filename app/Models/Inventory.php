@@ -79,4 +79,14 @@ class Inventory extends Model
         return $this->belongsTo(SubCategory::class);
     }
 
+    /**
+     * Get the saleDetail that owns the Inventory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function saleDetail(): BelongsTo
+    {
+        return $this->belongsTo(SaleDetail::class);
+    }
+
 }

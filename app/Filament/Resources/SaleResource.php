@@ -28,65 +28,10 @@ class SaleResource extends Resource
 
     protected static ?string $navigationLabel = 'Dashboard de Venta';
 
-    // public static function form(Form $form): Form
-    // {
-    //     return $form
-    //         ->schema([
-    //             Forms\Components\TextInput::make('sale_code')
-    //                 ->required()
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('total_sale')
-    //                 ->required()
-    //                 ->numeric()
-    //                 ->default(0.00),
-    //             Forms\Components\TextInput::make('payment_method')
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('tasa_bcv')
-    //                 ->required()
-    //                 ->numeric()
-    //                 ->default(0.00),
-    //             Forms\Components\TextInput::make('pay_bsd')
-    //                 ->required()
-    //                 ->numeric()
-    //                 ->default(0.00),
-    //             Forms\Components\TextInput::make('pay_usd')
-    //                 ->required()
-    //                 ->numeric()
-    //                 ->default(0.00),
-    //             Forms\Components\TextInput::make('date')
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('type_sale')
-    //                 ->required()
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('user_id')
-    //                 ->numeric(),
-    //             Forms\Components\TextInput::make('user_name')
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('commission_bsd')
-    //                 ->required()
-    //                 ->numeric()
-    //                 ->default(0.00),
-    //             Forms\Components\TextInput::make('commission_usd')
-    //                 ->required()
-    //                 ->numeric()
-    //                 ->default(0.00),
-    //             Forms\Components\TextInput::make('status')
-    //                 ->required()
-    //                 ->numeric()
-    //                 ->default(1),
-    //             Forms\Components\TextInput::make('created_by')
-    //                 ->required()
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('delivery_method')
-    //                 ->maxLength(100),
-    //             Forms\Components\FileUpload::make('image')
-    //                 ->image(),
-    //         ]);
-    // }
-
     public static function table(Table $table): Table
     {
         return $table
+            ->query(Sale::query()->orderBy('created_at', 'desc'))    
             ->columns([
                 Tables\Columns\TextColumn::make('sale_code')
                     ->label('Codigo')
@@ -96,6 +41,10 @@ class SaleResource extends Resource
                     ->label('Cliente')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                    Tables\Columns\TextColumn::make('employee.name')
+                    ->label('Acesor')
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('payment_method')
                     ->label('Forma de Pago')

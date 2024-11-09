@@ -29,7 +29,7 @@ class TableDailyClosing extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(DailyClosing::query())
+            ->query(DailyClosing::query()->orderBy('id', 'desc'))
             ->columns([
                 Tables\Columns\TextColumn::make('code')
                     ->label('Codigo')

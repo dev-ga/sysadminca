@@ -31,7 +31,7 @@ class TableBill extends Component implements HasForms, HasTable
         return $table
             ->heading('Gastos Generales')
             ->description('Tabla de gastos Ciudad Alternativa')
-            ->query(Bill::query())
+            ->query(Bill::query()->orderBy('id', 'desc'))
             ->columns([
                 
                 Tables\Columns\TextColumn::make('code')

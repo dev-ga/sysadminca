@@ -13,11 +13,18 @@ use Filament\Tables\Table;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 
 class TableProduct extends Component implements HasForms, HasTable
 {
     use InteractsWithForms;
     use InteractsWithTable;
+
+    #[On('inventory-updated')]
+    public function updateInventory()
+    {
+        $this->reset();
+    }
 
     public function table(Table $table): Table
     {
@@ -60,57 +67,11 @@ class TableProduct extends Component implements HasForms, HasTable
                 TextInputColumn::make('quantity')
                     ->label('Cantidad'),
 
-                TextInputColumn::make('model')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Modelo'),
-
-                TextInputColumn::make('material')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Material'),
-
-                TextInputColumn::make('variation_1')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Variacion 1'),
-
-                TextInputColumn::make('variation_2')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Variacion 2'),
-
-                TextInputColumn::make('variation_3')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Variacion 3'),
-
-                TextInputColumn::make('variation_4')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Variacion 4'),
-
-                TextInputColumn::make('variation_5')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->label('Variacion 5'),
-
-                Tables\Columns\ImageColumn::make('image')
-                    ->label('imagen')
-                    ->toggleable(isToggledHiddenByDefault: true),
-
                 Tables\Columns\TextColumn::make('created_by')
                     ->icon('heroicon-m-user')
                     ->color('primary')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-
-                Tables\Columns\TextColumn::make('pre_quantity')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->numeric()
-                    ->sortable(),
             ])
             ->filters([
                 //

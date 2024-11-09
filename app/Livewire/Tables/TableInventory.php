@@ -16,11 +16,18 @@ use Filament\Tables\Table;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 
 class TableInventory extends Component implements HasForms, HasTable
 {
     use InteractsWithForms;
     use InteractsWithTable;
+
+    #[On('inventory-updated')]
+    public function updateInventory()
+    {
+        $this->reset();
+    }
 
     public function table(Table $table): Table
     {
@@ -84,7 +91,7 @@ class TableInventory extends Component implements HasForms, HasTable
                 })
                 ->icon('heroicon-m-hand-thumb-up')
                 ->color('success')
-                ->requiresConfirmation(),
+                // ->requiresConfirmation(),
            ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

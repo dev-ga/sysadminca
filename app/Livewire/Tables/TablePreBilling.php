@@ -68,7 +68,6 @@ class TablePreBilling extends Component implements HasForms, HasTable
             ])
             ->actions([
                 Tables\Actions\Action::make('Eliminar')
-                ->requiresConfirmation()
                 ->action(fn (PreBilling $record) => $record->delete())
                 ->icon('heroicon-s-trash')
                 ->color('danger')
