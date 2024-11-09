@@ -17,16 +17,22 @@ class PaymentMethodResource extends Resource
 {
     protected static ?string $model = PaymentMethod::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-credit-card';
+
+    protected static ?string $navigationGroup = 'Configuracion General';
+
+    protected static ?string $navigationLabel = 'Metodos de Pago';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('description')
+                    ->label('descripcion')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('currency')
+                    ->label('moneda')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -37,14 +43,22 @@ class PaymentMethodResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('description')
+                ->label('descripcion')
+                ->icon('heroicon-s-numbered-list')
+                ->color('info')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('currency')
+                ->label('moneda')
+                ->icon('heroicon-c-building-office-2')
+                ->color('success')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                ->label('Fecha de Creacion')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                ->label('Fecha de Modificacion')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -9,6 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
@@ -34,34 +35,44 @@ class TablePreBilling extends Component implements HasForms, HasTable
             ->query(PreBilling::query())
             ->columns([
                 Tables\Columns\TextColumn::make('code')
+                    ->label('Código')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label('Cantidad')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
+                    ->label('Precio')
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_usd')
-                ->money('USD')
-                ->label('Dolares($)')
-                ->summarize(Sum::make()
+                    ->label('Total USD')
                     ->money('USD')
-                    ->label('Total a pagar($)'))
-                ->searchable(),
+                    ->label('Dolares($)')
+                    ->summarize(Sum::make()
+                        ->money('USD')
+                        ->label('Total a pagar($)'))
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('total_bsd')
-                ->money('VES')
-                ->label('Bolivares(Bs.)')
-                ->summarize(Sum::make()
+                    ->label('Total BSD')
                     ->money('VES')
-                    ->label('Total a pagar(Bs.)'))
-                ->searchable(),
+                    ->label('Bolivares(Bs.)')
+                    ->summarize(Sum::make()
+                        ->money('VES')
+                        ->label('Total a pagar(Bs.)'))
+                    ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('Eliminar')
+                ->action(fn (PreBilling $record) => $record->delete())
+                ->icon('heroicon-s-trash')
+                ->color('danger')
                 //
-            ])
+            ], position: ActionsPosition::BeforeColumns)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     //

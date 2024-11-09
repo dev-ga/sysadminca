@@ -17,6 +17,8 @@ return new class extends Migration
             $table->decimal('total_sale', 8, 2)->default(0);
             $table->string('delivery_method')->nullable();
             $table->string('payment_method')->nullable();
+            $table->string('multiMoneda_method_usd')->nullable();
+            $table->string('multiMoneda_method_bsd')->nullable();
             $table->decimal('tasa_bcv', 8, 2)->default(0);
             $table->decimal('pay_bsd', 8, 2)->default(0);
             $table->decimal('pay_usd', 8, 2)->default(0);

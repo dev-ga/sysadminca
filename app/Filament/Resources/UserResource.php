@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
 {
@@ -28,35 +26,48 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre y Apellido')
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('email')
+                ->label('Correo Electronico')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+
+                Forms\Components\TextInput::make('phone')
+                    ->label('Telefono')
+                    ->tel()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('dni')
+                    ->label('Cedula de Identidad')
+                    ->maxLength(255),
+
                 Forms\Components\TextInput::make('password')
+                    ->label('Contraseña')
                     ->password()
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('role')
-                    ->required()
+                    ->label('Rol')
+                    ->default('employee')
+                    ->disabled()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('status')
                     ->required()
                     ->maxLength(255)
                     ->default(1),
-                Forms\Components\TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('dni')
-                    ->maxLength(255),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->query(User::query()->where('role', 'employee'))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre y Apellido')

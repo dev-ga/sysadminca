@@ -58,6 +58,17 @@
                                                 <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
                                                     {{ $item->delivery_method }}
                                                 </div>
+                                                @if($item->delivery_method == 'envio-nacional')
+                                                <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
+                                                    {{ $item->agency->name }}
+                                                </div>
+                                                <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
+                                                    {{ $item->sucursal->name }}
+                                                </div>
+                                                <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
+                                                    Codigo: {{ $item->sucursal->code }}
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="mb-3">
@@ -85,7 +96,7 @@
                                             </ul>
                                         </div>
                                         {{-- Botones --}}
-                                        <div class="flex justify-between items-center space-x-2">
+                                        <div class="flex justify-between items-center space-x-1">
                                             <button data-modal-target="small-modal" data-modal-toggle="small-modal" class="flex-1 bg-black text-white rounded-lg px-3 py-2 text-xs font-medium transition duration-300 ease-in-out hover:bg-[#fd033f] flex items-center justify-center uppercase">
                                                 <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
@@ -97,7 +108,7 @@
                                                     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
                                                 </svg>
                                                 Asesor de Venta
-                                            </button>`
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

@@ -27,8 +27,8 @@ class SalePisoVentaChart extends ChartWidget
     {
         $data = Trend::query(Sale::where('type_sale', 'tienda-fisica'))
         ->between(
-            start: now()->startOfDay(),
-            end: now()->endOfDay(),
+            start: now()->startOfMonth(),
+            end: now()->endOfMonth(),
         )
         ->perDay()
         ->sum('total_sale');

@@ -35,7 +35,7 @@ Route::view('box', 'box')->middleware(['auth', 'verified'])->name('box');
 Route::view('daily-closing', 'daily-closing')->middleware(['auth', 'verified'])->name('daily-closing');
 Route::view('bills', 'bills')->middleware(['auth', 'verified'])->name('bills');
 Route::view('inventory', 'inventory')->middleware(['auth', 'verified'])->name('inventory');
-Route::view('daily-sale', 'inventory')->middleware(['auth', 'verified'])->name('daily-sale');
+Route::view('daily-sale', 'daily-sale')->middleware(['auth', 'verified'])->name('daily-sale');
 Route::view('on-line', 'on-line')->middleware(['auth', 'verified'])->name('on-line');
 Route::view('profile', 'profile')->middleware(['auth', 'verified'])->name('profile');
 
@@ -64,9 +64,11 @@ Route::get('/ex', function () {
 
         $array = ['5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '10'];
 
-        // $array = ['S', 'M', 'L'];
+        $array_tallas_completas = ['35', '36', '37', '38', '39', '40'];
+        $array_quantity_tc      = ['1', '3', '3', '3', '1', '1'];
 
-        // $array = ['39', '40'];
+        $array_tallas_medias    = ['5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '10'];
+        $array_quantity_tm      = ['1', '1', '1', '2', '2', '2', '1', '1', '1'];
 
 
 
@@ -79,12 +81,8 @@ Route::get('/ex', function () {
             $inventario->subcategory_id = 14;
             $inventario->size = $array[$i];
             $inventario->color = 'negro';
-            // $inventario->size = 35.5;
             $inventario->price = 30;
-            $inventario->quantity = 0;
-            // $inventario->material = 'patente';
-            // $inventario->variation_1 = 'padreria';
-            // $inventario->image = 'https://ciudadalternativaccs.com/wp-content/uploads/2024/09/WhatsApp-Image-2024-09-24-at-4.35.31-PM-1.webp';
+            $inventario->quantity = $array_quantity_tc[$i];
             $inventario->created_by = 'Gustavo Camacho';
 
             $inventario->save();
