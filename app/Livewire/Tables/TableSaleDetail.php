@@ -22,11 +22,14 @@ class TableSaleDetail extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(SaleDetail::query())
+            ->heading('Detalle de venta ON-LINE')
+            ->description('Tabla de detalle para ventas ON-LINE')
+            ->query(SaleDetail::query()->orderBy('created_at',  'desc'))
             ->columns([
 
                 Tables\Columns\TextColumn::make('sale_code')
                     ->label('Codigo')
+                    ->color('success')
                     ->icon('heroicon-c-tag')
                     ->searchable(),
 
@@ -45,6 +48,8 @@ class TableSaleDetail extends Component implements HasForms, HasTable
 
                 Tables\Columns\TextColumn::make('price')
                     ->label('Precio')
+                    ->color('success')
+                    ->icon('heroicon-s-currency-dollar')
                     ->money('USD')
                     ->searchable()
                     ->sortable(),

@@ -50,4 +50,14 @@ class SaleDetail extends Model
     {
         return $this->belongsTo(Statu::class, 'status_id', 'id');
     }
+
+    /**
+     * Get the inventory associated with the SaleDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function inventory(): HasOne
+    {
+        return $this->hasOne(Inventory::class);
+    }
 }

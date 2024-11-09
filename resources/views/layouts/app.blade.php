@@ -34,7 +34,11 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-900">
 
+        <!-- Notifications WireUI -->
         <x-notifications position="bottom" />
+
+        <!-- Dialog WireUI -->
+        <x-dialog z-index="z-50" blur="md" align="center" class="bg-gray-700"/>
         
         @livewire('menu-employee')
 
@@ -45,7 +49,6 @@
     </div>
 
     @filamentScripts
-
     @livewire('wire-elements-modal')
 </body>
 </html>

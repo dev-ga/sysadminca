@@ -16,11 +16,21 @@
                     <div id="accordion-open-{{ $item->id }}" data-accordion="open" data-active-classes="bg-{{ $item->status->color }} border-0">
                         <h2 id="accordion-open-heading-1-{{ $item->id }}">
                             <button type="button" class="flex items-center justify-between w-full p-5 border  border-[#fd033f] font-medium text-white bg-black  rounded-3xl  focus:bg-{{ $item->status->color }} hover:bg-{{ $item->status->color }} hover:border-0  gap-3" data-accordion-target="#accordion-open-body-1-{{ $item->id }}" aria-expanded="false" aria-controls="accordion-open-body-1-{{ $item->id }}">
-                                <div class="flex items-center">
-                                    <svg class="w-7 h-7 me-2 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
-                                    </svg>
-                                    {{ $item->sale_code }}
+                                <div class="flex flex-col items-start justify-start">
+                                    <div class="flex items-center text-sm">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+                                          </svg>
+                                          
+                                        {{ $item->sale_code }}
+                                    </div>
+                                    <div class="flex items-center text-sm mt-2">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.8" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"/>
+                                          </svg>
+                                        {{ $item->date }}
+                                    </div>
+
                                 </div>
                                 <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
@@ -48,6 +58,17 @@
                                                 <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
                                                     {{ $item->delivery_method }}
                                                 </div>
+                                                @if($item->delivery_method == 'envio-nacional')
+                                                <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
+                                                    {{ $item->agency->name }}
+                                                </div>
+                                                <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
+                                                    {{ $item->sucursal->name }}
+                                                </div>
+                                                <div class="px-2 m-0.5 bg-white/10 rounded-full text-xs font-extrabold text-white/70 shadow-sm border border-white/20 transition-all duration-300 hover:bg-white/20 uppercase">
+                                                    Codigo: {{ $item->sucursal->code }}
+                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="mb-3">
@@ -75,7 +96,7 @@
                                             </ul>
                                         </div>
                                         {{-- Botones --}}
-                                        <div class="flex justify-between items-center space-x-2">
+                                        <div class="flex justify-between items-center space-x-1">
                                             <button data-modal-target="small-modal" data-modal-toggle="small-modal" class="flex-1 bg-black text-white rounded-lg px-3 py-2 text-xs font-medium transition duration-300 ease-in-out hover:bg-[#fd033f] flex items-center justify-center uppercase">
                                                 <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
@@ -87,7 +108,7 @@
                                                     <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
                                                 </svg>
                                                 Asesor de Venta
-                                            </button>`
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

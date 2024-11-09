@@ -63,17 +63,8 @@
         </div>
 
         @filamentScripts
+        @livewire('wire-elements-modal')
     </body>
-    {{-- <script>
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('notifications-payment-registered', (event) => {
-            $wireui.notify({
-                title: 'Profile saved!',
-                description: 'Your profile was successfully saved',
-                icon: 'success'
-            })
-            });
-        });
-    </script> --}}
+
 </html>
 

@@ -19,6 +19,7 @@ Route::view('/search', 'livewire.costumer.search-item')->middleware(['auth', 've
 Route::view('/costumer/c/c', 'livewire.costumer.shopping-car')->middleware(['auth', 'verified'])->name('shopping-car');
 Route::view('/costumer/p/s', 'livewire.costumer.pay-sale')->middleware(['auth', 'verified'])->name('pay-sale');
 Route::view('/costumer/s/s', 'livewire.costumer.status-sale')->middleware(['auth', 'verified'])->name('status-sale');
+Route::view('/costumer/p', 'profileCostumer')->middleware(['auth'])->name('profile-costumer');
 
 /*----------------------------------------------------------------------------------- */
 
@@ -34,7 +35,7 @@ Route::view('box', 'box')->middleware(['auth', 'verified'])->name('box');
 Route::view('daily-closing', 'daily-closing')->middleware(['auth', 'verified'])->name('daily-closing');
 Route::view('bills', 'bills')->middleware(['auth', 'verified'])->name('bills');
 Route::view('inventory', 'inventory')->middleware(['auth', 'verified'])->name('inventory');
-Route::view('daily-sale', 'inventory')->middleware(['auth', 'verified'])->name('daily-sale');
+Route::view('daily-sale', 'daily-sale')->middleware(['auth', 'verified'])->name('daily-sale');
 Route::view('on-line', 'on-line')->middleware(['auth', 'verified'])->name('on-line');
 Route::view('profile', 'profile')->middleware(['auth', 'verified'])->name('profile');
 
@@ -59,28 +60,31 @@ require __DIR__.'/auth.php';
 Route::get('/ex', function () {
     try {
 
-        $array = ['35', '36', '37', '38', '39', '40'];
+        // $array = ['35', '36', '37', '38', '39', '40'];
 
-        // $array = ['5','5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '10'];
+        $array = ['5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '10'];
 
-        // $array = ['35'];
+        $array_tallas_completas = ['35', '36', '37', '38', '39', '40'];
+        $array_quantity_tc      = ['1', '3', '3', '3', '1', '1'];
+
+        $array_tallas_medias    = ['5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '10'];
+        $array_quantity_tm      = ['1', '1', '1', '2', '2', '2', '1', '1', '1'];
+
 
 
         for ($i=0; $i < count($array) ; $i++) { 
             $inventario = new Inventory();
-            $inventario->sku = 'Eden09';
-            $inventario->product = 'Eden09';
+            $inventario->sku = 'MARIAM';
+            $inventario->product = 'MARIAM';
             $inventario->code = 'CA-'.random_int(11111111, 99999999);
             $inventario->category_id = 6;
-            $inventario->subcategory_id = 15;
+            $inventario->subcategory_id = 14;
             $inventario->size = $array[$i];
-            $inventario->color = 'silver';
-            // $inventario->size = 35.5;
-            // $inventario->price = 35;
-            $inventario->quantity = 0;
-            // $inventario->material = 'patente';
-            // $inventario->variation_1 = 'padreria';
+            $inventario->color = 'negro';
+            $inventario->price = 30;
+            $inventario->quantity = $array_quantity_tc[$i];
             $inventario->created_by = 'Gustavo Camacho';
+
             $inventario->save();
             # code...
         }
