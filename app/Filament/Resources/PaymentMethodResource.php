@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class PaymentMethodResource extends Resource
 {
@@ -29,12 +30,21 @@ class PaymentMethodResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('description')
                     ->label('descripcion')
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($set, $state) {
+                        $set('slug', Str::slug($state));
+                    })
+                    ->required()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('currency')
-                    ->label('moneda')
+                Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('currency')
+                    ->options([
+                        'USD' => 'Dolares',
+                        'BS' => 'Bolivares',
+                    ]),
             ]);
     }
 
