@@ -31,7 +31,6 @@ class MenuEmployee extends Component
     }
 
     public function update_bcv(){
-        
         $this->validate();
 
         try {
@@ -53,7 +52,7 @@ class MenuEmployee extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/', navigate: false);
     }
     
     public function render()

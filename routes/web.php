@@ -10,9 +10,7 @@ Route::view('/', 'welcome');
  * Costumer Routes
  * ***************
  */
-
 Route::view('/costumer/w', 'welcome-costumer');
-
 Volt::route('/costumer/l', 'costumer.login-costumer')->name('login-costumer');
 Volt::route('/costumer/r', 'costumer.register-costumer')->name('register-costumer');
 Route::view('/search', 'livewire.costumer.search-item')->middleware(['auth', 'verified'])->name('search-item');
@@ -23,13 +21,12 @@ Route::view('/costumer/p', 'profileCostumer')->middleware(['auth'])->name('profi
 
 /*----------------------------------------------------------------------------------- */
 
+
 /**
  * Employee Routes
  * ***************
  */
-
 Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::view('bcv', 'bcv')->middleware(['auth', 'verified'])->name('bcv');
 Route::view('box', 'box')->middleware(['auth', 'verified'])->name('box');
 Route::view('daily-closing', 'daily-closing')->middleware(['auth', 'verified'])->name('daily-closing');
@@ -38,6 +35,9 @@ Route::view('inventory', 'inventory')->middleware(['auth', 'verified'])->name('i
 Route::view('daily-sale', 'daily-sale')->middleware(['auth', 'verified'])->name('daily-sale');
 Route::view('on-line', 'on-line')->middleware(['auth', 'verified'])->name('on-line');
 Route::view('profile', 'profile')->middleware(['auth', 'verified'])->name('profile');
+Route::view('roster', 'roster')->middleware(['auth', 'verified'])->name('roster');
+
+/*----------------------------------------------------------------------------------- */
 
 
 /**Route for  list items view */
