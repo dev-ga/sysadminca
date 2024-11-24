@@ -31,5 +31,6 @@ class DailyClosing extends Model
         'total_pago_movil',
         'total_transferencia',
         'created_by',
+        'store'
     ];
 }

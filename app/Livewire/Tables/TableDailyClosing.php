@@ -29,25 +29,17 @@ class TableDailyClosing extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(DailyClosing::query()->orderBy('id', 'desc'))
+            ->query(DailyClosing::query()->whereBetween('created_at', [date('Y-m-d').' 09:00:00.000', date('Y-m-d').' 23:00:00.000'])->orderBy('id', 'desc'))
             ->columns([
                 Tables\Columns\TextColumn::make('code')
                     ->label('Codigo')
                     ->color('success')
                     ->icon('heroicon-c-tag')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('ref_debito')
-                    ->label('Ref. Debito')
-                    ->description(fn (DailyClosing $record): string => $record->ref_debito)
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('ref_credito')
-                    ->label('Ref. Credito')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('ref_visaMaster')
-                    ->label('Ref. Visa/Master')
-                    ->toggleable(isToggledHiddenByDefault: true)
+                Tables\Columns\TextColumn::make('store')
+                    ->label('Tienda')
+                    ->color('success')
+                    ->icon('heroicon-s-building-library')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount_debito')
                     ->color('info')
