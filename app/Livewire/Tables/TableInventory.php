@@ -48,7 +48,7 @@ class TableInventory extends Component implements HasForms, HasTable
                 TextColumn::make('category.name')
                     ->label('Categoria')
                     ->numeric()
-                    ->sortable(),
+                    ->searchable(),
                 TextColumn::make('size')
                     ->label('Talla')
                     ->searchable(),
@@ -60,7 +60,7 @@ class TableInventory extends Component implements HasForms, HasTable
                     ->color('success')
                     ->icon('heroicon-s-currency-dollar')
                     ->money()
-                    ->sortable(),
+                    ->searchable(),
                 TextInputColumn::make('pre_quantity')
                 ->label('Cantidad'),
             ])
