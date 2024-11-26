@@ -641,7 +641,7 @@ class PaySale extends Component
             $sale->delivery_method  = $this->delivery_method;
             $sale->agency_id        = $this->agencyid;
             $sale->sucursal_id      = $this->sucursalid;
-            $sale->code_sucursal    = AgencyDetail::find($this->sucursalid)->code;
+            // $sale->code_sucursal    = AgencyDetail::find($this->sucursalid)->code;
             $sale->tasa_bcv         = $this->tasa_bcv();
             $sale->date             = now()->format('d-m-Y');
             $sale->type_sale        = 'on-line';
@@ -706,6 +706,7 @@ class PaySale extends Component
 
             //code...
         } catch (\Throwable $th) {
+            dd($th);
             Notification::make()
             ->title('NOTIFICACION-EXCEPCION')
             ->body($th->getMessage())
