@@ -45,16 +45,16 @@ class TableInventory extends Component implements HasForms, HasTable
                 TextColumn::make('sku')
                     ->label('SKU')
                     ->searchable(),
-                TextColumn::make('category.name')
-                    ->label('Categoria')
-                    ->numeric()
-                    ->searchable(),
-                TextColumn::make('size')
-                    ->label('Talla')
-                    ->searchable(),
-                TextColumn::make('color')
-                    ->label('Color')
-                    ->searchable(),
+                // TextColumn::make('category.name')
+                //     ->label('Categoria')
+                //     ->numeric()
+                //     ->searchable(),
+                // TextColumn::make('size')
+                //     ->label('Talla')
+                //     ->searchable(),
+                // TextColumn::make('color')
+                //     ->label('Color')
+                //     ->searchable(),
                 TextColumn::make('price')
                     ->label('Precio')
                     ->color('success')
