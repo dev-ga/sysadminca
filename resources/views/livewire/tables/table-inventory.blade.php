@@ -1,3 +1,3 @@
-<div class="dark boder p-4">
+<div class="boder p-4">
     {{ $this->table }}
 </div>
