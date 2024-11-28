@@ -22,32 +22,28 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased font-sans">
-        <div class="flex h-screen justify-center items-center bg-slate-800">
+        <div class="flex h-screen justify-center items-center bg-white">
             <div class="mx-auto flex justify-center px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8">
                 <div class="text-center ">
                     <h1
-                        class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                        class="text-4xl font-extrabold tracking-tight text-black sm:text-5xl md:text-6xl">
                         <div class="flex items-center justify-center">
                             <div class="items-center">
                                 <img src="{{ asset('image/logo.png') }}" class="w-[40rem] h-auto" alt="">
                             </div>
                         </div>
-
-                        <div class="flex justify-center mt-1">
-                                <span class="relative text-xl uppercase">Sistema Adiministrativo Integral</span>
-                        </div>
                     </h1>
                     <div class="flex justify-center items-center gap-2">
                         <div class="flex mt-6">
                             <a class="flex items-center justify-center w-full" href="{{ route('login') }}">
-                                <button class="flex justify-center rounded-3xl border border-[#fd033f] py-4 px-6 mt-1 text-md items-center sm:text-center font-bold text-white shadow-sm hover:bg-[#fd033f] uppercase">
+                                <button class="flex justify-center rounded-xl border border-[#fd033f] py-3 px-5 mt-1 text-md items-center sm:text-center font-bold text-white shadow-sm bg-[#fd033f] uppercase">
                                     <span class="text-center font-extrabold items-center shadow-2xl">Login</span>
                                 </button>
                             </a>
                         </div>
                         <div class="flex mt-6">
                             <a class="flex items-center justify-center w-full" href="{{ route('register') }}">
-                                <button class="flex justify-center rounded-3xl border border-[#fd033f] py-4 px-6 mt-1 text-md items-center sm:text-center font-bold text-white shadow-sm hover:bg-[#fd033f] uppercase">
+                                <button class="flex justify-center rounded-xl border border-[#fd033f] py-3 px-5 mt-1 text-md items-center sm:text-center font-bold text-white shadow-sm bg-[#fd033f] uppercase">
                                     <span class="text-center font-extrabold items-center shadow-2xl">Registro</span>
                                 </button>
                             </a>
@@ -61,7 +57,7 @@
                         <a
                           href="#!"
                           type="button"
-                          class="rounded-full border border-[#fd033f] p-3 uppercase leading-normal text-surface shadow-dark-3 shadow-black/30 transition duration-150 ease-in-out hover:shadow-dark-1 focus:shadow-dark-1 focus:outline-none focus:ring-0 active:shadow-1 text-white hover:bg-[#fd033f]"
+                          class="rounded-full border border-[#fd033f] p-3 uppercase leading-normal text-surface shadow-dark-3 shadow-black/30 transition duration-150 ease-in-out hover:shadow-dark-1 focus:shadow-dark-1 focus:outline-none focus:ring-0 active:shadow-1 text-white bg-[#fd033f]"
                           data-twe-ripple-init
                           data-twe-ripple-color="light">
                           <span class="[&>svg]:h-5 [&>svg]:w-5">
@@ -79,7 +75,7 @@
                         <a
                           href="#!"
                           type="button"
-                          class="rounded-full rounded-full border border-[#fd033f] p-3 uppercase leading-normal text-surface shadow-dark-3 shadow-black/30 transition duration-150 ease-in-out hover:shadow-dark-1 focus:shadow-dark-1 focus:outline-none focus:ring-0 active:shadow-1 text-white hover:bg-[#fd033f]"
+                          class="rounded-full rounded-full border border-[#fd033f] p-3 uppercase leading-normal text-surface shadow-dark-3 shadow-black/30 transition duration-150 ease-in-out hover:shadow-dark-1 focus:shadow-dark-1 focus:outline-none focus:ring-0 active:shadow-1 text-white bg-[#fd033f]"
                           data-twe-ripple-init
                           data-twe-ripple-color="light">
                           <span class="mx-auto [&>svg]:h-5 [&>svg]:w-5">
@@ -96,7 +92,7 @@
                     </div>
         
                     <!--Copyright section-->
-                    <div class="w-full p-4 text-center text-white text-xs">
+                    <div class="w-full p-4 text-center text-black text-sm font-extrabold">
                         © 2024 Copyright:
                         <a href="https://tw-elements.com/">Ciudad Alternativa. All Rights Reserved.</a>
                     </div>
