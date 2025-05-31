@@ -35,34 +35,31 @@ class TableInventory extends Component implements HasForms, HasTable
         return $table
             ->heading('Calzados, Lenceria y Accesorios')
             ->description('Lista general de inventario')
-            ->query(Inventory::query()->where('quantity', '>', 0))
+            ->query(Inventory::query()->where('quantity', '>', 0)->orderBy('created_at', 'desc'))
             ->columns([
                 TextColumn::make('code')
                     ->label('Codigo')
                     ->color('success')
                     ->icon('heroicon-c-tag')
                     ->searchable(isIndividual: true),
-
-                TextColumn::make('sku')
-                    ->label('SKU')
+                TextColumn::make('product')
+                    ->label('Articulo')
                     ->searchable(isIndividual: true),
 
-                // TextColumn::make('category.name')
-                //     ->label('Categoria')
-                //     ->numeric()
-                //     ->searchable(),
-                // TextColumn::make('size')
-                //     ->label('Talla')
-                //     ->searchable(),
-                // TextColumn::make('color')
-                //     ->label('Color')
-                //     ->searchable(),
-                TextColumn::make('price')
+                TextColumn::make('category.name')
+                    ->label('Categoria')
+                    ->numeric()
+                    ->searchable(isIndividual: true),
+            TextColumn::make('price')
                     ->label('Precio')
                     ->color('success')
                     ->icon('heroicon-s-currency-dollar')
                     ->money()
                     ->searchable(isIndividual: true),
+
+            TextColumn::make('quantity')
+                    ->label('Exitencia')
+                    ->icon('heroicon-m-adjustments-horizontal'),
 
                 TextInputColumn::make('pre_quantity')
                 ->label('Cantidad'),
@@ -102,8 +99,7 @@ class TableInventory extends Component implements HasForms, HasTable
                     //
                 ]),
             ])
-            ->striped()
-            ->defaultPaginationPageOption(5);
+            ->striped();
     }
 
     public function render(): View

@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bank;
-use App\Models\Commission;
-use App\Models\Inventory;
-use App\Models\PreBilling;
-use App\Models\ProofPayment;
 use App\Models\Sale;
-use App\Models\SaleDetail;
 use App\Models\TasaBcv;
-use Filament\Notifications\Notification;
+use App\Models\Inventory;
+use App\Models\Commission;
+use App\Models\PreBilling;
+use App\Models\SaleDetail;
+use App\Models\ProofPayment;
 use Illuminate\Http\Request;
+use App\Models\InventoryMovement;
 use Illuminate\Support\Facades\Auth;
+use Filament\Notifications\Notification;
 
 class UtilsController extends Controller
 {
@@ -138,7 +139,7 @@ class UtilsController extends Controller
         }
     }
 
-    static function billing_payment_method_usd($amount_sale, $amount_usd, $payment_method_usd, $employee)
+    static function billing_payment_method_usd($amount_sale, $amount_usd, $payment_method_usd, $employee, $status)
     {
         try {
 
@@ -162,7 +163,7 @@ class UtilsController extends Controller
                 $sale->date             = now()->format('d-m-Y');
                 $sale->type_sale        = 'tienda-fisica';
                 $sale->sold_by          = $employee;
-                $sale->status_id        = 2;
+                $sale->status           = $status;
                 $sale->created_by       = $user;
                 $sale->save();
 
@@ -183,13 +184,23 @@ class UtilsController extends Controller
                     $sale_details->total_pay_usd = $item->total_usd;
                     $sale_details->user_id = $employee;
                     $sale_details->date = now()->format('d-m-Y');
-                    $sale_details->status_id = 2;
+                    $sale_details->status  = $status;
                     $sale_details->created_by = $user;
                     $sale_details->save();
 
                     //Actualizamos el inventario
                     $inventory->quantity = $inventory->quantity - $item->quantity;
                     $inventory->save();
+
+                    //Actualizo en la tabla de movimiento de inventario
+                    $inventory_movement = new InventoryMovement();
+                    $inventory_movement->type_inventory_movement = 'venta';
+                    $inventory_movement->product_id = $inventory->id;
+                    $inventory_movement->product_code = $inventory->code;
+                    $inventory_movement->quantity = $item->quantity;
+                    $inventory_movement->sale_date = now()->format('d-m-Y');
+                    $inventory_movement->created_by = $user;
+                    $inventory_movement->save();
                 }
 
                 return true;
@@ -208,9 +219,9 @@ class UtilsController extends Controller
         
     }
 
-    static function billing_payment_method_bsd($amount_sale, $amount_bsd, $payment_method_bsd, $employee)
+    static function billing_payment_method_bsd($amount_sale, $amount_bsd, $payment_method_bsd, $employee, $status)
     {
-
+        // dd($amount_sale, $amount_bsd, $payment_method_bsd, $employee);
         try {
 
             if($amount_bsd == 0){
@@ -233,7 +244,7 @@ class UtilsController extends Controller
                 $sale->date             = now()->format('d-m-Y');
                 $sale->type_sale        = 'tienda-fisica';
                 $sale->sold_by          = $employee;
-                $sale->status_id        = 2;
+                $sale->status           = $status;
                 $sale->created_by       = $user;
                 $sale->save();
 
@@ -254,7 +265,7 @@ class UtilsController extends Controller
                     $sale_details->total_pay_usd = $inventory->price * $item->quantity;
                     $sale_details->user_id = $employee;
                     $sale_details->date = now()->format('d-m-Y');
-                    $sale_details->status_id = 2;
+                    $sale_details->status  = $status;
                     $sale_details->created_by = $user;
                     $sale_details->save();
 
@@ -279,8 +290,9 @@ class UtilsController extends Controller
         
     }
 
-    static function billing_multiple($amount_sale_usd, $amount_sale_bsd, $amount_usd, $amount_bsd, $payment_method, $employee, $payment_method_usd, $payment_method_bsd)
+    static function billing_multiple($amount_sale_usd, $amount_sale_bsd, $amount_usd, $amount_bsd, $payment_method, $employee, $payment_method_usd, $payment_method_bsd, $status)
     {
+
         try {
 
             if($amount_bsd == 0){
@@ -322,7 +334,7 @@ class UtilsController extends Controller
                 $sale->date             = now()->format('d-m-Y');
                 $sale->type_sale        = 'tienda-fisica';
                 $sale->sold_by          = $employee;
-                $sale->status_id        = 2;
+                $sale->status           = $status;
                 $sale->created_by       = $user;
                 $sale->save();
 
@@ -343,7 +355,7 @@ class UtilsController extends Controller
                     $sale_details->total_pay_usd = $inventory->price * $item->quantity;
                     $sale_details->user_id = $employee;
                     $sale_details->date = now()->format('d-m-Y');
-                    $sale_details->status_id = 2;
+                    $sale_details->status  = $status;
                     $sale_details->created_by = $user;
                     $sale_details->save();
 

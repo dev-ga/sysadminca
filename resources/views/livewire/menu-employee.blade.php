@@ -43,19 +43,19 @@
                         </a>
                     </li> --}}
                     <li class="hover:text-black hover:font-extrabold">
-                        <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('box') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                        <a href="{{ route('box') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">CAJA - FACTURACION</div>
                             <span class="text-sm text-white dark:text-gray-400">Facturacion de Ventas en piso de ventas y ON-LINE</span>
                         </a>
                     </li>
                     <li class="hover:text-black hover:font-extrabold">
-                        <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('daily-closing') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                        <a href="{{ route('daily-closing') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">CIERRE DIARIO</div>
                             <span class="text-sm text-white dark:text-gray-400">Cierre del ejercicio financiero. Esto lo realiza el usuario encargado del dia</span>
                         </a>
                     </li>
                     <li class="hover:text-black hover:font-extrabold">
-                        <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('bills') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                        <a href="{{ route('bills') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">GASTOS</div>
                             <span class="text-sm text-white dark:text-gray-400">Registro de gastos diarios de cualquier tipo</span>
                         </a>
@@ -63,19 +63,19 @@
                 </ul>
                 <ul>
                     <li class="hover:text-black hover:font-extrabold">
-                        <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('inventory') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                        <a href="{{ route('inventory') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">PRODUCTOS</div>
                             <span class="text-sm text-white dark:text-gray-400">Inventario Ciudad Alternativa</span>
                         </a>
                     </li>
                     <li class="hover:text-black hover:font-extrabold">
-                      <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('on-line') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                      <a href="{{ route('on-line') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                           <div class="font-semibold">TIENDA ON-LINE</div>
                           <span class="text-sm text-white dark:text-gray-400">Servicio de compra y venta ON-LINE</span>
                       </a>
                   </li>
                   <li class="hover:text-black hover:font-extrabold">
-                      <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('daily-sale') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                      <a href="{{ route('daily-sale') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                           <div class="font-semibold">VENTA DIARIA</div>
                           <span class="text-sm text-white dark:text-gray-400">Tabla de ventas del dia. Esta tabla refleja todos los movimientos del dia actual</span>
                       </a>
@@ -83,13 +83,13 @@
                 </ul>
                 <ul>
                     <li class="hover:text-black hover:font-extrabold">
-                        <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('roster') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                        <a href="{{ route('roster') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">NOMINA</div>
                             <span class="text-sm text-white dark:text-gray-400">Modulo de perfil y gestion de Usuario</span>
                         </a>
                     </li>
                     <li class="hover:text-black hover:font-extrabold">
-                        <a href="{{ App\Models\TasaBcv::first()->date == date('d-m-Y') ? route('profile') : '#' }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                        <a href="{{ route('profile') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">PERFIL DE USUARIO</div>
                             <span class="text-sm text-white dark:text-gray-400">Modulo de perfil y gestion de Usuario</span>
                         </a>

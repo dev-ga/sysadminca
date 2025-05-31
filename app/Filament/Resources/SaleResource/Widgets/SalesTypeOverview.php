@@ -2,13 +2,14 @@
 
 namespace App\Filament\Resources\SaleResource\Widgets;
 
-use App\Filament\Resources\SaleResource\Pages\ListSales;
 use App\Models\Sale;
-use Filament\Widgets\Concerns\InteractsWithPageTable;
-use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Widgets\StatsOverviewWidget\Stat;
+use App\Models\TasaBcv;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
+use Filament\Widgets\StatsOverviewWidget\Stat;
+use Filament\Widgets\Concerns\InteractsWithPageTable;
+use Filament\Widgets\StatsOverviewWidget as BaseWidget;
+use App\Filament\Resources\SaleResource\Pages\ListSales;
 
 class SalesTypeOverview extends BaseWidget
 {
@@ -29,7 +30,8 @@ class SalesTypeOverview extends BaseWidget
                 end: now(),
             )
             ->perMonth();
-            // ->count('cliente');
+        // ->count('cliente');
+
 
         return [
 

@@ -21,31 +21,31 @@ class SalesCommissionOverview extends BaseWidget
         return ListSales::class;
     }
     
-    protected function getStats(): array
-    {
-        $data = Trend::model(Sale::class)
-            ->between(
-                start: now()->subYear(),
-                end: now(),
-            )
-            ->perMonth();
+    // protected function getStats(): array
+    // {
+    //     $data = Trend::model(Sale::class)
+    //         ->between(
+    //             start: now()->subYear(),
+    //             end: now(),
+    //         )
+    //         ->perMonth();
 
-        return [
+    //     return [
 
-            Stat::make('Comision en Dolares($ )', '$'.$this->getPageTableQuery()->sum('commission_usd'))
-                ->description('Acumulado de comisiones')
-                ->descriptionIcon('heroicon-c-users')
-                ->color('info')
-                ->chart([7, 2, 10, 3, 15, 4, 17]),
+    //         Stat::make('Comision en Dolares($ )', '$'.$this->getPageTableQuery()->sum('commission_usd'))
+    //             ->description('Acumulado de comisiones')
+    //             ->descriptionIcon('heroicon-c-users')
+    //             ->color('info')
+    //             ->chart([7, 2, 10, 3, 15, 4, 17]),
 
-            Stat::make('Comision en Bolivares(Bs. )', 'Bs. '.$this->getPageTableQuery()->sum('commission_bsd'))
-                ->description('Acumulado de comisiones')
-                ->descriptionIcon('heroicon-c-users')
-                ->color('info')
-                ->chart([7, 2, 10, 3, 15, 4, 17]),
+    //         Stat::make('Comision en Bolivares(Bs. )', 'Bs. '.$this->getPageTableQuery()->sum('commission_bsd'))
+    //             ->description('Acumulado de comisiones')
+    //             ->descriptionIcon('heroicon-c-users')
+    //             ->color('info')
+    //             ->chart([7, 2, 10, 3, 15, 4, 17]),
 
-        ];
-    }
+    //     ];
+    // }
 
     public function getColumns(): int
     {

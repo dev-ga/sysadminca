@@ -33,7 +33,7 @@
                 </h2>
                 <div class="space-y-4 p-2">
                     {{-- Metodo de pago Prepagado --}}
-                    <div class="grid grid-cols-1 gap-2">
+                    <div class="grid grid-cols-2 gap-2">
                         <div class="px-1">
                             <label for="small" class="block mb-2 text-sm font-medium text-black">Empleado</label>
                             <select wire:model.live="employee" id="small" class="block w-full p-2 mb-1 text-sm text-black border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -44,6 +44,16 @@
                             </select>
                             <x-input-error :messages="$errors->get('employee')" class="mt-1" />
                         </div>
+                        <div class="px-1">
+                            <label for="small" class="block mb-2 text-sm font-medium text-black">Tipo de venta</label>
+                            <select wire:model.live="status" id="small" class="block w-full p-2 mb-1 text-sm text-black border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected></option>
+                                    <option value="MANUAL">MANUAL</option>
+                                    <option value="FISCAL">FISCAL</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('employee')" class="mt-1" />
+                        </div>
+
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div class="px-1">

@@ -55,6 +55,11 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
+            TextColumn::make('id')
+                ->searchable(isIndividual: true)
+                ->icon('heroicon-m-square-3-stack-3d')
+                ->iconColor('primary')
+                ->searchable(),
                 TextColumn::make('name')
                     ->searchable(isIndividual: true)
                     ->icon('heroicon-m-square-3-stack-3d')
