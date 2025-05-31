@@ -22,7 +22,7 @@
 
 </head>
 <body class="font-sans text-gray-900 antialiased">
-    <div class="flex flex-col h-screen justify-center items-center bg-slate-800">
+    <div class="flex flex-col h-screen justify-center items-center bg-gray-200">
         <!-- Iconos -->
         @if(Request::routeIs('register-costumer'))
           <div class="fixed top-1 left-1 mb-2 flex justify-center p-1">
@@ -92,7 +92,7 @@
             </div>
 
             <!--Copyright section-->
-            <div class="w-full p-4 text-center text-white text-xs">
+            <div class="w-full p-4 text-center text-black text-xs">
                 © 2024 Copyright:
                 <a href="https://tw-elements.com/">Ciudad Alternativa. All Rights Reserved.</a>
             </div>

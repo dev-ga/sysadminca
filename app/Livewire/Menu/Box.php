@@ -20,6 +20,7 @@ class Box extends Component
     
     public $amount_bsd;
     public $amount_usd;
+    public $status;
 
     #[Validate('required', message: 'Empleado requerido')]
     public $employee;
@@ -99,7 +100,7 @@ class Box extends Component
         if($this->payment_method_usd != '' && $this->payment_method_bsd == '')
         {
             $total_amount = PreBilling::sum('total_usd');
-            $res = UtilsController::billing_payment_method_usd($total_amount, $this->amount_usd, $this->payment_method_usd, $this->employee);
+            $res = UtilsController::billing_payment_method_usd($total_amount, $this->amount_usd, $this->payment_method_usd, $this->employee, $this->status);
 
             if($res){
 
@@ -126,7 +127,7 @@ class Box extends Component
         if($this->payment_method_usd == '' && $this->payment_method_bsd != '')
         {
             $total_amount = PreBilling::sum('total_bsd');
-            $res = UtilsController::billing_payment_method_bsd($total_amount, $total_amount, $this->payment_method_bsd, $this->employee);
+            $res = UtilsController::billing_payment_method_bsd($total_amount, $total_amount, $this->payment_method_bsd, $this->employee, $this->status);
 
             if($res){
 
@@ -153,7 +154,9 @@ class Box extends Component
         {
             $total_amount_usd = PreBilling::sum('total_usd');
             $total_amount_bsd = PreBilling::sum('total_bsd');
-            $res = UtilsController::billing_multiple($total_amount_usd, $total_amount_bsd, (integer)$this->amount_usd, (float)$this->amount_bsd, 'multi-moneda', $this->employee, $this->payment_method_usd, $this->payment_method_bsd);
+            $montoLimpio = str_replace(['.', ','], ['', '.'], $this->amount_bsd);
+            $montoNumero = (float) $montoLimpio;
+            $res = UtilsController::billing_multiple($total_amount_usd, $total_amount_bsd, $this->amount_usd, $montoNumero, 'multi-moneda', $this->employee, $this->payment_method_usd, $this->payment_method_bsd, $this->status);
 
             if($res){
 

@@ -16,6 +16,7 @@ class DailyClosing extends Component
     public $amount_debito;
     public $amount_credito;
     public $amount_visaMaster;
+    public $store;
 
 
     public function daily_closing()
@@ -35,11 +36,13 @@ class DailyClosing extends Component
             /** Efectivo USD */
             $efectivoUSD = Sale::where('status_id', 2)
             ->where('payment_method', 'efectivo-dolares')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
 
             $efectivoUSD_multiMoneda = Sale::where('status_id', 2)
             ->where('multiMoneda_method_usd', 'efectivo-dolares')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
             /********************************************************************************************************************/
@@ -47,11 +50,13 @@ class DailyClosing extends Component
             /** Zelle */
             $zelle = Sale::where('status_id', 2)
             ->where('payment_method', 'zelle')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
 
             $zelle_multiMoneda = Sale::where('status_id', 2)
             ->where('multiMoneda_method_usd', 'zelle')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
             /********************************************************************************************************************/
@@ -59,11 +64,13 @@ class DailyClosing extends Component
             /** Banesco Panama */
             $banecoPanama = Sale::where('status_id', 2)
             ->where('payment_method', 'banesco-panama')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
 
             $banecoPanama_multiMoneda = Sale::where('status_id', 2)
             ->where('multiMoneda_method_usd', 'banesco-panama')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
             /********************************************************************************************************************/
@@ -71,11 +78,13 @@ class DailyClosing extends Component
             /** Pago MOvil */
             $pagoMovil = Sale::where('status_id', 2)
             ->where('payment_method', 'pago-movil')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
 
             $pagoMovil_multiMoneda = Sale::where('status_id', 2)
             ->where('multiMoneda_method_usd', 'pago-movil')
+            ->where('type_sale', $this->store)
             ->whereBetween('created_at', [date('Y-m-d').':00:00:00.000', date('Y-m-d').':23:59:59.000'])
             ->sum('pay_usd');
             /********************************************************************************************************************/
@@ -85,6 +94,7 @@ class DailyClosing extends Component
             $dailyClosing->total_zelle          = $zelle + $zelle_multiMoneda;
             $dailyClosing->total_banesco_panama = $banecoPanama + $banecoPanama_multiMoneda;
             $dailyClosing->total_pago_movil     = $pagoMovil + $pagoMovil_multiMoneda;
+            $dailyClosing->store                = $this->store;
             $dailyClosing->created_by           = Auth::user()->name;
 
             $dailyClosing->save();

@@ -43,8 +43,10 @@ new #[Layout('layouts.guest')] class extends Component
             event(new Registered($user = User::create($validated)));
     
             Auth::login($user);
+
+            $this->redirectRoute('dashboard');
     
-            $this->redirect(route('dashboard', absolute: false), navigate: true);
+            // $this->redirect(route('dashboard', absolute: false), navigate: false);
 
         } catch (\Throwable $th) {
             dd($th);
@@ -57,9 +59,7 @@ new #[Layout('layouts.guest')] class extends Component
 <form wire:submit="register">
         <!-- Name -->
         <div>
-            <!-- <x-input-label for="name" :value="__('Nombre y Apellido')" /> -->
-            <!-- <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" /> -->
-            <x-input class="caret-white" icon="user" placeholder="Nombre y Apellido" rounded type="text" name="name"  wire:model="name"/>
+            <x-input class="caret-black" icon="user" placeholder="Nombre y Apellido" rounded type="text" name="name"  wire:model="name"/>
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
@@ -67,21 +67,19 @@ new #[Layout('layouts.guest')] class extends Component
 
         <!-- telefono -->
         <div class="mt-4">
-            <x-input class="caret-white" icon="phone" placeholder="Telefono" rounded type="phone" name="phone" wire:model="phone"/>
+            <x-input class="caret-black" icon="phone" placeholder="Telefono" rounded type="phone" name="phone" wire:model="phone"/>
             <x-input-error :messages="$errors->get('phone')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
-            <x-input class="caret-white" icon="at-symbol" placeholder="Email" rounded type="email" name="email" wire:model="email"/>
+            <x-input class="caret-black" icon="at-symbol" placeholder="Email" rounded type="email" name="email" wire:model="email"/>
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input class="caret-white" icon="lock-open" placeholder="contraseña" rounded type="password" name="password" wire:model="password" id="password"/>
-
-
+            <x-input class="caret-black" icon="lock-open" placeholder="contraseña" rounded type="password" name="password" wire:model="password" id="password"/>
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 

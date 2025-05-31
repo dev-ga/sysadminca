@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('inventory_id');
             $table->string('sku');
             $table->string('inventory_code');
+            $table->string('size');
             $table->decimal('price', 8, 2)->default(0);
             $table->integer('quantity')->default(0);
             $table->decimal('total_pay_usd', 8, 2)->default(0);

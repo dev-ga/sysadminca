@@ -27,7 +27,7 @@ class SaleDetail extends Model
         'total_pay_usd',
         'user_id',
         'date',
-        'status_id',
+        'status',
         'created_by',
     ];
 

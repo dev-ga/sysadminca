@@ -30,7 +30,7 @@ class Sale extends Model
         'user_name',
         'commission_bsd',
         'commission_usd',
-        'status_id',
+        'status',
         'proof_payment_id',
         'created_by',
     ];

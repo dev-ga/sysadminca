@@ -5,6 +5,7 @@ namespace App\Livewire\Tables;
 use App\Models\Inventory;
 use App\Models\PreBilling;
 use App\Models\TasaBcv;
+use Filament\Forms\Components\Builder as ComponentsBuilder;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables;
@@ -34,32 +35,32 @@ class TableInventory extends Component implements HasForms, HasTable
         return $table
             ->heading('Calzados, Lenceria y Accesorios')
             ->description('Lista general de inventario')
-            ->query(Inventory::query()->where('quantity', '>', 0))
+            ->query(Inventory::query()->where('quantity', '>', 0)->orderBy('created_at', 'desc'))
             ->columns([
                 TextColumn::make('code')
                     ->label('Codigo')
                     ->color('success')
                     ->icon('heroicon-c-tag')
-                    ->searchable(),
-                TextColumn::make('sku')
-                    ->label('SKU')
-                    ->searchable(),
+                    ->searchable(isIndividual: true),
+                TextColumn::make('product')
+                    ->label('Articulo')
+                    ->searchable(isIndividual: true),
+
                 TextColumn::make('category.name')
                     ->label('Categoria')
                     ->numeric()
-                    ->sortable(),
-                TextColumn::make('size')
-                    ->label('Talla')
-                    ->searchable(),
-                TextColumn::make('color')
-                    ->label('Color')
-                    ->searchable(),
-                TextColumn::make('price')
+                    ->searchable(isIndividual: true),
+            TextColumn::make('price')
                     ->label('Precio')
                     ->color('success')
                     ->icon('heroicon-s-currency-dollar')
                     ->money()
-                    ->sortable(),
+                    ->searchable(isIndividual: true),
+
+            TextColumn::make('quantity')
+                    ->label('Exitencia')
+                    ->icon('heroicon-m-adjustments-horizontal'),
+
                 TextInputColumn::make('pre_quantity')
                 ->label('Cantidad'),
             ])
@@ -98,8 +99,7 @@ class TableInventory extends Component implements HasForms, HasTable
                     //
                 ]),
             ])
-            ->striped()
-            ->defaultPaginationPageOption(5);
+            ->striped();
     }
 
     public function render(): View

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('commissions', function (Blueprint $table) {
             $table->id();
-            $table->string('cod_comision')->unique();
             $table->string('aplication'); //on-line , piso-de-venta
             $table->string('user_id');
             $table->string('type_user'); //Empleado, Gerente

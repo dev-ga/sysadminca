@@ -2,21 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SaleResource\Pages;
-use App\Filament\Resources\SaleResource\RelationManagers;
-use App\Models\Sale;
 use Carbon\Carbon;
-use Filament\Tables\Actions\Action;
 use Filament\Forms;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Sale;
 use Filament\Tables;
-use Filament\Tables\Columns\Summarizers\Sum;
-use Filament\Tables\Filters\Filter;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Illuminate\Support\Collection;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Columns\Summarizers\Sum;
+use App\Filament\Resources\SaleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\SaleResource\RelationManagers;
+use App\Filament\Resources\SaleResource\RelationManagers\SaleDetailsRelationManager;
+use App\Filament\Resources\SaleResource\RelationManagers\DsaleDetailsRelationManager;
 
 class SaleResource extends Resource
 {
@@ -107,15 +111,14 @@ class SaleResource extends Resource
                     })
                     ->searchable(),
                 
-                Tables\Columns\TextColumn::make('status.name')
+                Tables\Columns\TextColumn::make('status')
                     ->label('Estatus')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'registrada' => 'warning',
-                        'Validando Pago' => 'info',
-                        'facturada' => 'success',
+                        'MANUAL' => 'success',
+                        'FISCAL' => 'warning',
                     })
-                    ->sortable(),
+                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('tasa_bcv')
                     ->money('VES')
@@ -131,14 +134,6 @@ class SaleResource extends Resource
                         ->label('Total($)'))
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('pay_bsd')
-                    ->alignCenter()
-                    ->money('VES')
-                    ->label('Pago(Bs.)')
-                    ->summarize(Sum::make()
-                        ->money('VES')
-                        ->label('Total(Bs.)'))
-                    ->searchable(),
 
                 Tables\Columns\TextColumn::make('pay_usd')
                     ->alignCenter()
@@ -148,6 +143,16 @@ class SaleResource extends Resource
                         ->money('USD')
                         ->label('Total($)'))
                     ->searchable(),
+
+                Tables\Columns\TextColumn::make('pay_bsd')
+                        ->alignCenter()
+                        ->money('VES')
+                        ->label('Pago(Bs.)')
+                        ->summarize(Sum::make()
+                            ->money('VES')
+                            ->label('Total(Bs.)'))
+                        ->searchable(),
+
 
                 Tables\Columns\TextColumn::make('date')
                     ->label('Fecha Venta')
@@ -186,32 +191,38 @@ class SaleResource extends Resource
             ])
             ->filters([
                 Filter::make('created_at')
-                ->form([
-                    DatePicker::make('desde'),
-                    DatePicker::make('hasta'),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query
-                        ->when(
-                            $data['desde'] ?? null,
-                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                        )
-                        ->when(
-                            $data['hasta'] ?? null,
-                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
-                        );
-                })
-                ->indicateUsing(function (array $data): array {
-                    $indicators = [];
-                    if ($data['desde'] ?? null) {
-                        $indicators['desde'] = 'Venta desde ' . Carbon::parse($data['desde'])->toFormattedDateString();
-                    }
-                    if ($data['hasta'] ?? null) {
-                        $indicators['hasta'] = 'Venta hasta ' . Carbon::parse($data['hasta'])->toFormattedDateString();
-                    }
+                    ->form([
+                        DatePicker::make('desde'),
+                        DatePicker::make('hasta'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['desde'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['hasta'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        if ($data['desde'] ?? null) {
+                            $indicators['desde'] = 'Venta desde ' . Carbon::parse($data['desde'])->toFormattedDateString();
+                        }
+                        if ($data['hasta'] ?? null) {
+                            $indicators['hasta'] = 'Venta hasta ' . Carbon::parse($data['hasta'])->toFormattedDateString();
+                        }
 
-                    return $indicators;
-                }),
+                        return $indicators;
+                    }),
+                    SelectFilter::make('status')
+                    ->label('Estatus')
+                    ->options([
+                        'MANUAL' => 'MANUAL',
+                        'FISCAL' => 'FISCAL',
+                    ])
             ])
             ->filtersTriggerAction(
                 fn (Action $action) => $action
@@ -224,6 +235,19 @@ class SaleResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('fiscalizar')
+                        ->label('Fiscalizar')
+                        ->icon('heroicon-s-server')
+                        ->color('warning')
+                        ->requiresConfirmation()
+                        ->deselectRecordsAfterCompletion()
+                        ->action(function (Collection $records) {
+                            foreach ($records as $record) {
+                                $record->saleDetails()->update(['status' => 'FICALIZADA']);
+                                $record->status = 'FICALIZADA';
+                                $record->save();
+                            }
+                        }),
                 ]),
             ])
             ->striped();
@@ -232,7 +256,7 @@ class SaleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SaleDetailsRelationManager::class
         ];
     }
 

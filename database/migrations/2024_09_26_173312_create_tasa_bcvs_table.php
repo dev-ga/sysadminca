@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tasa_bcvs', function (Blueprint $table) {
             $table->id();
             $table->decimal('tasa', 10, 2);
+            $table->string('date');
             $table->timestamps();
         });
     }

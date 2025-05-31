@@ -20,7 +20,9 @@ new #[Layout('layouts.guest')] class extends Component
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: false);
+        redirect()->route('dashboard')->with('openLogin');
+
+        // $this->redirectIntended(default: route('dashboard', absolute: false), navigate: false);
     }
 }; ?>
 

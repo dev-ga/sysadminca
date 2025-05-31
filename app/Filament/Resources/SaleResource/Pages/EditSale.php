@@ -10,10 +10,21 @@ class EditSale extends EditRecord
 {
     protected static string $resource = SaleResource::class;
 
+    protected ?string $heading = 'Detalles de Venta';
+
+    
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            
+        ];
+    }
+
+    protected function getFormActions(): array
+    {
+        return [
+            // ...parent::getFormActions(),
+            // Action::make('close')->action('saveAndClose'),
         ];
     }
 }

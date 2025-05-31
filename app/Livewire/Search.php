@@ -89,41 +89,41 @@ class Search extends Component
 
     }
 
-    // public function search_item(){
+    public function search_item(){
 
-    //     $this->validate();
+        $this->validate();
 
-    //     try {
+        try {
 
-    //             $search_item = Inventory::where('code', 'like', '%'.$this->code)->first();
+                $search_item = Inventory::where('code', 'like', '%'.$this->code)->first();
 
-    //             if (!isset($search_item)) {
-    //                 $this->code_no_exit();
+                if (!isset($search_item)) {
+                    $this->code_no_exit();
 
-    //             } elseif ($search_item->quantity > 0) {
-    //                 $item_cars = new ItemCar();
-    //                 $item_cars->inventory_id = $search_item->id;
-    //                 $item_cars->code = $search_item->code;
-    //                 $item_cars->user_id = Auth::user()->id;
-    //                 $item_cars->save();
+                } elseif ($search_item->quantity > 0) {
+                    $item_cars = new ItemCar();
+                    $item_cars->inventory_id = $search_item->id;
+                    $item_cars->code = $search_item->code;
+                    $item_cars->user_id = Auth::user()->id;
+                    $item_cars->save();
 
-    //                 $this->reset();
+                    $this->reset();
                     
-    //             } else {
-    //                 $this->errorDialog();
-    //             }
+                } else {
+                    $this->errorDialog();
+                }
 
-    //     } catch (\Throwable $th) {
-    //         Notification::make()
-    //         ->title('NOTIFICACION-EXCEPCION')
-    //         ->body($th->getMessage())
-    //         ->color('error') 
-    //         ->icon('heroicon-o-document-text')
-    //         ->iconColor('error')
-    //         ->send();
-    //     }
+        } catch (\Throwable $th) {
+            Notification::make()
+            ->title('NOTIFICACION-EXCEPCION')
+            ->body($th->getMessage())
+            ->color('error') 
+            ->icon('heroicon-o-document-text')
+            ->iconColor('error')
+            ->send();
+        }
 
-    // }
+    }
 
     public function add_item($id){
 

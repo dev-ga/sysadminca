@@ -23,8 +23,8 @@
                         </button>
                     </li>
                     <li>
-                        <button onclick="Livewire.dispatch('openModal', { component: 'modal-bcv' })" class="text-white bg-[#fd033f] hover:bg-[#050708]/90 hover:border hover:border-[#fd033f] font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30">
-                            <img class="w-6 h-auto mr-1" src="{{ asset('image/logo_bcv_2.png') }}" alt="">
+                        <button class="text-white border border-[#fd033f] font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30">
+                            <img class="w-5 h-auto mr-1" src="{{ asset('image/logo_bcv_2.png') }}" alt="">
                             BCV : {{ $tasa }}Bs.
                         </button>
                     </li>
@@ -82,6 +82,12 @@
                   </li>
                 </ul>
                 <ul>
+                    <li class="hover:text-black hover:font-extrabold">
+                        <a href="{{ route('roster') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
+                            <div class="font-semibold">NOMINA</div>
+                            <span class="text-sm text-white dark:text-gray-400">Modulo de perfil y gestion de Usuario</span>
+                        </a>
+                    </li>
                     <li class="hover:text-black hover:font-extrabold">
                         <a href="{{ route('profile') }}" class="block p-3 rounded-lg hover:bg-[#fd033f] dark:hover:bg-gray-700">
                             <div class="font-semibold">PERFIL DE USUARIO</div>

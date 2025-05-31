@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('bp_reference')->nullable();
             $table->decimal('amount', 8, 2)->nullable();
             $table->string('image')->nullable();
+            $table->string('enn_state')->nullable();
+            $table->string('enn_agency')->nullable();
+            $table->string('enn_code_agency')->nullable();
             $table->timestamps();
         });
     }

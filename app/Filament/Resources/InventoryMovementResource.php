@@ -30,9 +30,6 @@ class InventoryMovementResource extends Resource
                 Forms\Components\TextInput::make('type_inventory_movement')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
                 Forms\Components\TextInput::make('product_id')
                     ->required()
                     ->numeric(),
@@ -56,9 +53,6 @@ class InventoryMovementResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('type_inventory_movement')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user_id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('product_id')

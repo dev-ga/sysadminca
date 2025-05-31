@@ -32,7 +32,7 @@
 
 </head>
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-900">
+    <div class="min-h-screen bg-gray-200 text-black">
 
         <!-- Notifications WireUI -->
         <x-notifications position="bottom" />
